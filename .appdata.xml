@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 Christian Camilon <christiancamilon@gmail.com> -->
+<component type="desktop">
+    <id>com.github.xchan14.readit</id>
+    <metadata_license>CC0</metadata_license>
+    <name>Readit</name>
+    <summary>Reddit client</summary>
+    <description>
+        <p>Browse reddit with Readit.</p>
+    </description>
+</component>
