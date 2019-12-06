@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Readit
+GenericName=Reddit Client
+Comment=Browse reddit with Readit.
+Categories=Internet;
+Exec=com.github.xchan14.readit
+Icon=application-default-icon
+Terminal=false
+Type=Application
+Keywords=Reddit;Readit;
