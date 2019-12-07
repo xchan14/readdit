@@ -19,10 +19,12 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
+using Widgets;
 
-public class Program : Gtk.Application {
 
-    public Program(){
+public class Main : Gtk.Application {
+
+    public Main(){
         Object(
             application_id: "com.github.xchan14.readit",
             flags: ApplicationFlags.FLAGS_NONE
@@ -30,20 +32,11 @@ public class Program : Gtk.Application {
     }
 
     public static int main (string[] args){
-        var app = new Program();
+        var app = new Main();
         return app.run(args);
     }
 
     protected override void activate(){
-        var main_window = new Gtk.ApplicationWindow(this);
-        main_window.default_height = 450;
-        main_window.default_width = 800;
-        main_window.title = "Readit";
-
-
-        var titleLabel = new Gtk.Label("Readit"); 
-        main_window.add(titleLabel);
-
-        main_window.show_all();
+        new AppMainWindow(this);
     }
 }

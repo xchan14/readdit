@@ -1,4 +1,4 @@
-Build started at 2019-12-06T23:49:08.612226
+Build started at 2019-12-08T02:46:29.867446
 Main binary: /usr/bin/python3
 Python system: Linux
 The Meson build system
@@ -6,5 +6,26 @@ Version: 0.49.2
 Source dir: /home/xchan/Projects/readit
 Build dir: /home/xchan/Projects/readit/build
 Build type: native build
+Project name: com.github.xchan14.readit
+Project version: undefined
+Native C compiler: cc (gcc 7.4.0 "cc (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0")
+Native Vala compiler: valac (valac 0.40.18)
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Dependency gtk+-3.0 found: YES (cached)
+Dependency unity found: YES (cached)
+Build targets in project: 1
+Found ninja-1.8.2 at /usr/bin/ninja
+Running compile:
+Working directory:  /tmp/tmpi08113c_
+Command line:  cc /tmp/tmpi08113c_/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpi08113c_/output.obj -O0 --print-search-dirs 
 
-ERROR: No statements in code.
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-linux-gnu/7/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/7/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/7/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 

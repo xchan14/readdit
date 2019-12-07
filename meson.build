@@ -8,9 +8,20 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
 # Create excecutable.
 executable(
     meson.project_name(),
-    'src/Program.vala',
+
+    'src/Main.vala',
+    'src/Comments/CommentItem.vala',
+    'src/Comments/CommentList.vala',
+    'src/Posts/PostDetailsPane.vala',
+    'src/Posts/PostPane.vala',
+    'src/Subreddits/SubredditPane.vala',
+    'src/Widgets/AppBody.vala',
+    'src/Widgets/AppHeaderBar.vala',
+    'src/Widgets/AppMainWindow.vala',
+
     dependencies: [
-        dependency('gtk+-3.0')
+        dependency('gtk+-3.0'),
+        dependency('unity')
     ],
     install: true
 )

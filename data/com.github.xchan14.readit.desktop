@@ -8,3 +8,4 @@ Icon=application-default-icon
 Terminal=false
 Type=Application
 Keywords=Reddit;Readit;
+X-GNOME-UsesNotifications=true
