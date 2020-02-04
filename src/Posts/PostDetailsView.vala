@@ -2,13 +2,13 @@ using Comments;
 
 namespace Posts { 
     
-    public class PostDetailsPane : Gtk.Box {
+    public class PostDetailsView : Gtk.Box {
 
         construct {
+            get_style_context().add_class("post-details");
             orientation = Gtk.Orientation.VERTICAL;
 
             var media = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            media.height_request = 200;
             pack_start(media);
 
             var description = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);

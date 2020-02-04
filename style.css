@@ -1,0 +1,25 @@
+
+.app-main {
+    min-height: 900px;
+}
+
+.app-body {
+    min-height: 600px;
+}
+
+.post-list {
+    min-width: 200px;
+}
+
+.post-list-item {
+    min-width: 200px;
+}
+
+.post-list-item-title {
+    font-size: 20px;
+    padding: 1px;
+}
+
+.post-details {
+    min-width: 500px;
+}

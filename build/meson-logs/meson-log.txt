@@ -1,4 +1,4 @@
-Build started at 2020-02-04T20:20:24.093564
+Build started at 2020-02-04T23:07:58.511577
 Main binary: /usr/bin/python3
 Python system: Linux
 The Meson build system
@@ -17,8 +17,8 @@ Dependency unity found: YES (cached)
 Build targets in project: 6
 Found ninja-1.8.2 at /usr/bin/ninja
 Running compile:
-Working directory:  /tmp/tmplpgib0er
-Command line:  cc /tmp/tmplpgib0er/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmplpgib0er/output.obj -O0 --print-search-dirs 
+Working directory:  /tmp/tmpdo5in5ng
+Command line:  cc /tmp/tmpdo5in5ng/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpdo5in5ng/output.obj -O0 --print-search-dirs 
 
 Code:
  
