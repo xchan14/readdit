@@ -1,10 +1,10 @@
-Build started at 2019-12-08T02:46:29.867446
+Build started at 2020-02-04T20:20:24.093564
 Main binary: /usr/bin/python3
 Python system: Linux
 The Meson build system
 Version: 0.49.2
-Source dir: /home/xchan/Projects/readit
-Build dir: /home/xchan/Projects/readit/build
+Source dir: /home/xchan/Documents/Projects/Github/readit
+Build dir: /home/xchan/Documents/Projects/Github/readit/build
 Build type: native build
 Project name: com.github.xchan14.readit
 Project version: undefined
@@ -14,11 +14,11 @@ Build machine cpu family: x86_64
 Build machine cpu: x86_64
 Dependency gtk+-3.0 found: YES (cached)
 Dependency unity found: YES (cached)
-Build targets in project: 1
+Build targets in project: 6
 Found ninja-1.8.2 at /usr/bin/ninja
 Running compile:
-Working directory:  /tmp/tmpi08113c_
-Command line:  cc /tmp/tmpi08113c_/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpi08113c_/output.obj -O0 --print-search-dirs 
+Working directory:  /tmp/tmplpgib0er
+Command line:  cc /tmp/tmplpgib0er/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmplpgib0er/output.obj -O0 --print-search-dirs 
 
 Code:
  

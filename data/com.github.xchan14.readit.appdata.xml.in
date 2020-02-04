@@ -3,7 +3,7 @@
 <component type="desktop">
     <id>com.github.xchan14.readit</id>
     <metadata_license>CC0</metadata_license>
-    <name>Readit</name>
+    <name>ReadIt</name>
     <summary>Reddit client</summary>
     <description>
         <p>Browse reddit with Readit.</p>
