@@ -3,23 +3,43 @@
     min-height: 900px;
 }
 
+.app-header-bar {
+}
+
+.app-header-bar .custom-title {
+    background-color: #333333;
+    margin: 5px 0 5px 0;
+}
+
+.app-header-bar .custom-title .search-text {
+    font-size: 20px;
+    padding: 1px 5px 1px 5px;
+}
+
 .app-body {
     min-height: 600px;
 }
 
 .post-list {
-    min-width: 200px;
+    background-color: transparent;
+}
+
+.post-list-listbox {
+    background-color: transparent;
 }
 
 .post-list-item {
-    min-width: 200px;
+    background-color: transparent;
+    padding: 10px 5px 10px 5px;
 }
 
 .post-list-item-title {
     font-size: 20px;
+    font-weight: bold;
     padding: 1px;
 }
 
-.post-details {
-    min-width: 500px;
+.post-details, 
+.post-details .media {
+    /*background-color: transparent;*/
 }

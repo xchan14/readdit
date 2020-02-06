@@ -9,6 +9,7 @@ namespace Posts {
             orientation = Gtk.Orientation.VERTICAL;
 
             var media = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            media.get_style_context().add_class("media");
             pack_start(media);
 
             var description = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);

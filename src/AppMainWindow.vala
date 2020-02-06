@@ -18,7 +18,7 @@ namespace Widgets {
             apply_css();
 
             var header_bar = new AppHeaderBar();
-            // header_bar.get_style_context().add_class(Gtk.STYLE_CLASS_FLAT);
+            //header_bar.get_style_context().add_class(Gtk.STYLE_CLASS_FLAT);
             set_titlebar(header_bar);
 
             add(new AppBody());
@@ -28,6 +28,7 @@ namespace Widgets {
 
         private void set_window_size()
         {
+            set_default_size(800, 600);
         }
 
         private void apply_css() 
