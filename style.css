@@ -8,12 +8,14 @@
 
 .app-header-bar .custom-title {
     background-color: #333333;
-    margin: 5px 0 5px 0;
+    margin: 6px 0 6px 0;
 }
 
 .app-header-bar .custom-title .search-text {
     font-size: 20px;
     padding: 1px 5px 1px 5px;
+    border-radius: 15px;
+    background-color: transparent;
 }
 
 .app-body {
@@ -30,7 +32,7 @@
 
 .post-list-item {
     background-color: transparent;
-    padding: 10px 5px 10px 5px;
+    padding: 18px 6px 18px 6px;
 }
 
 .post-list-item-title {

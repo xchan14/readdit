@@ -28,7 +28,7 @@ namespace Widgets {
 
         private void set_window_size()
         {
-            set_default_size(800, 600);
+            set_default_size(1360, 700);
         }
 
         private void apply_css() 
