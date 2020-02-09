@@ -1,4 +1,6 @@
 
+
+
 .app-main {
     min-height: 900px;
 }
@@ -6,15 +8,17 @@
 .app-header-bar {
 }
 
-.app-header-bar .custom-title {
-    background-color: #333333;
-    margin: 6px 0 6px 0;
+.app-header-bar .custom-header {
+    background-color:transparent;
+    padding-top: 6px;
+    padding-bottom: 3px;
 }
 
-.app-header-bar .custom-title .search-text {
+.app-header-bar .custom-header .search-text {
     font-size: 20px;
-    padding: 1px 5px 1px 5px;
-    border-radius: 15px;
+    padding: 3px 6px 3px 6px;
+    border-radius: 18px;
+    border-color: transparent;
     background-color: transparent;
 }
 
@@ -28,11 +32,16 @@
 
 .post-list-listbox {
     background-color: transparent;
+    padding: 18px 12px 18px 12px;
 }
 
 .post-list-item {
-    background-color: transparent;
-    padding: 18px 6px 18px 6px;
+    color: black;
+    margin: 6px 0 6px 0;
+}
+
+.post-list-item:selected {
+    background-color: red;
 }
 
 .post-list-item-title {

@@ -8,6 +8,7 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
 # Create excecutable.
 executable(
     meson.project_name(),
+
     'src/Main.vala',
 
     'src/AppBody.vala',
@@ -24,7 +25,8 @@ executable(
     
     dependencies: [
         dependency('gtk+-3.0'),
-        dependency('unity')
+        dependency('unity'),
+        dependency('granite')
     ],
     install: true
 )
