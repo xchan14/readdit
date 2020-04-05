@@ -34,7 +34,7 @@ namespace Widgets {
         private void apply_css() 
         {
             CssProvider css_provider = new CssProvider();
-            css_provider.load_from_path("styles/style.css");
+            css_provider.load_from_resource("com/github/xchan14/readit/application.css");
             Gtk.StyleContext.add_provider_for_screen(
                 Gdk.Screen.get_default(), 
                 css_provider, 

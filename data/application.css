@@ -1,0 +1,84 @@
+
+.app-main {
+    min-height: 900px;
+    color: #1a1a1a;
+}
+
+/*
+.app-header-bar {
+}
+*/
+
+.app-header-bar .custom-header {
+    background-color:transparent;
+    padding-top: 6px;
+    padding-bottom: 3px;
+}
+
+.app-header-bar .custom-header .search-text {
+    font-size: 20px;
+    padding: 3px 6px 3px 6px;
+    border-radius: 18px;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.app-body {
+    min-height: 600px;
+}
+
+.post-list {
+    background-color: transparent;
+}
+
+.post-list-listbox {
+    background-color: transparent;
+}
+    .post-list-listbox row {
+        border-bottom: 1px solid #C4C4C4;
+    }
+
+    .post-list-listbox row:selected {
+        background-color: #d4d4d4;
+    }
+
+.post-list-item {
+    color: black;
+    padding: 12px 18px 12px 18px;
+}
+
+    .post-list-item .subreddit {
+        color: #3689e6;
+        font-weight: bold;
+    }
+
+    .post-list-item .posted-by {
+        color: #3689e6;
+        font-weight: bold;
+    }
+
+    .post-list-item .post-title {
+        font-size: 18px;
+        color: #1a1a1a;
+        line-height: 1.6;
+        padding: 12px 0 12px 0;
+    }
+
+    .post-list-item .score {
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        background-color: #a3907c;
+        border-radius: 5px;
+        padding: 0px 6px 0px 6px;
+    }
+
+    .post-list-item .date-posted {
+        color: #7e8087;
+        font-weight: bold;
+    }
+
+.post-details, 
+.post-details .media {
+    background-color: #d4d4d4;
+}

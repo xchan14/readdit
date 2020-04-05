@@ -1,13 +1,21 @@
 project('com.github.xchan14.readit', 'vala', 'c')
 
 i18n = import('i18n')
+gnome = import('gnome')
 
 # Set our translation domain
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
+asresources = gnome.compile_resources(
+    'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
+    source_dir: 'data',
+    c_name: 'as'
+)
+
 # Create excecutable.
 executable(
     meson.project_name(),
+    asresources,
 
     'src/Main.vala',
 
@@ -25,7 +33,6 @@ executable(
     
     dependencies: [
         dependency('gtk+-3.0'),
-        dependency('unity'),
         dependency('granite')
     ],
     install: true
@@ -49,5 +56,7 @@ i18n.merge_file(
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
+
+
 
 subdir('po')

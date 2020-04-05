@@ -1,32 +1,30 @@
-Build started at 2020-02-09T19:50:33.127360
+Build started at 2020-04-05T20:54:01.007891
 Main binary: /usr/bin/python3
 Python system: Linux
 The Meson build system
 Version: 0.49.2
-Source dir: /home/xchan/Documents/Github/readit
-Build dir: /home/xchan/Documents/Github/readit/build
+Source dir: /home/xchan/Documents/Github/xchan14/readit
+Build dir: /home/xchan/Documents/Github/xchan14/readit/build
 Build type: native build
 Project name: com.github.xchan14.readit
 Project version: undefined
-Native C compiler: cc (gcc 7.4.0 "cc (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0")
-Native Vala compiler: valac (valac 0.40.18)
+Native C compiler: cc (gcc 7.5.0 "cc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0")
+Native Vala compiler: valac (valac 0.40.20)
 Build machine cpu family: x86_64
 Build machine cpu: x86_64
-Dependency gtk+-3.0 found: YES (cached)
-Dependency unity found: YES (cached)
 Found pkg-config: /usr/bin/pkg-config (0.29.1)
-Determining dependency 'granite' with pkg-config executable '/usr/bin/pkg-config'
-Called `/usr/bin/pkg-config --modversion granite` -> 0
-5.3.0
-Called `/usr/bin/pkg-config --cflags granite` -> 0
--pthread -I/usr/include/granite -I/usr/include/gee-0.8 -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng16 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
-Called `/usr/bin/pkg-config granite --libs` -> 0
--L/usr/lib/x86_64-linux-gnu -lgranite -lgee-0.8 -lgio-2.0 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0
-Called `/usr/bin/pkg-config granite --libs` -> 0
--lgranite -lgee-0.8 -lgio-2.0 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0
+Determining dependency 'glib-2.0' with pkg-config executable '/usr/bin/pkg-config'
+Called `/usr/bin/pkg-config --modversion glib-2.0` -> 0
+2.56.4
+Called `/usr/bin/pkg-config --cflags glib-2.0` -> 0
+-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
+-L/usr/lib/x86_64-linux-gnu -lglib-2.0
+Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
+-lglib-2.0
 Running compile:
-Working directory:  /tmp/tmpb3qvsw66
-Command line:  cc /tmp/tmpb3qvsw66/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmpb3qvsw66/output.exe -O0 
+Working directory:  /tmp/tmp_mbp0890
+Command line:  cc /tmp/tmp_mbp0890/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmp_mbp0890/output.exe -O0 
 
 Code:
  #include<stdio.h>
@@ -47,8 +45,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /tmp/tmpv2j8kdti
-Command line:  cc /tmp/tmpv2j8kdti/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpv2j8kdti/output.obj -O0 --print-search-dirs 
+Working directory:  /tmp/tmpg4zltx3f
+Command line:  cc /tmp/tmpg4zltx3f/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpg4zltx3f/output.obj -O0 --print-search-dirs 
 
 Code:
  
@@ -59,6 +57,7 @@ libraries: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../
 
 Compiler stderr:
  
-Dependency granite found: YES 5.3.0
-Build targets in project: 6
+Dependency gtk+-3.0 found: YES (cached)
+Dependency granite found: YES (cached)
+Build targets in project: 8
 Found ninja-1.8.2 at /usr/bin/ninja
