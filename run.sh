@@ -1,8 +1,6 @@
 
 cd "build"
 
+sudo ninja uninstall
 sudo ninja install 
-
-cd ..
-
 com.github.xchan14.readit

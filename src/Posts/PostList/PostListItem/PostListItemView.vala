@@ -9,23 +9,27 @@ namespace Posts.PostList.PostListItem {
         Gtk.Label _subreddit;
         Gtk.Label _date_posted;
 
-        private PostListItemViewModel _model;
+        private Post _model;
 
         public signal void title_pressed(string post_id);
 
-        public PostListItemView(PostListItemViewModel model)
+        public PostListItemView(Post post)
         {
             var style = get_style_context();
             style.add_class("post-list-item");
 
-            _title =  new Gtk.Label(null);
-            _title.get_style_context().add_class("post-title");
-            _title.selectable = true;
-            _title.xalign = 0.0f;
-            _title.wrap = true;
+            this._title =  new Gtk.Label(null);
+            this._title.get_style_context().add_class("h2");
+            this._title.selectable = true;
+            this._title.xalign = 0.0f;
+            this._title.wrap = true;
+            this._title.lines = 3;
+            this._title.single_line_mode = false;
+            this._title.ellipsize = Pango.EllipsizeMode.END;
  
             _score = new Gtk.Label(null);
             _score.get_style_context().add_class("score");
+            this._score.valign = Gtk.Align.END;
 
             _subreddit = new Gtk.Label(null);
             _subreddit.get_style_context().add_class("subreddit");
@@ -44,6 +48,9 @@ namespace Posts.PostList.PostListItem {
             header.pack_start(_posted_by, false, false, 0);
             header.pack_start(new Gtk.Label(" in "), false, false, 0);
             header.pack_start(_subreddit, false, false, 0);
+            header.forall((widget) => {
+                ((Gtk.Label)widget).valign = Gtk.Align.END;
+            });
 
             attach(header, 1, 1);
 
@@ -53,16 +60,17 @@ namespace Posts.PostList.PostListItem {
            
             show_all();
 
-            update_values(model);
-            this._title.button_press_event.connect(() => {
+            update_values(post);
+            this._title.button_press_event.connect(() => 
+            {
                 title_pressed(this._model.id);
                 return false;
             });
         }
 
-        public PostListItemViewModel model { get { return _model; } } 
+        public Post model { get { return _model; } } 
 
-        private void update_values(PostListItemViewModel model) {
+        private void update_values(Post model) {
             this._model = model;
             _title.label = model.title;
             _score.label = model.score.to_string();

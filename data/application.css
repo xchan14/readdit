@@ -5,10 +5,9 @@
     background-color:  white;
 }
 
-/*
 .app-header-bar {
+    background-color: #1a1a1a;
 }
-*/
 
 .app-header-bar .custom-header {
     background-color:transparent;
@@ -31,7 +30,7 @@
 .post-list {
     background-color: transparent;
 }
-
+/* 
 .post-list-listbox {
     background-color: transparent;
 }
@@ -43,19 +42,18 @@
     .post-list-listbox row:selected {
         background-color: #d4d4d4;
     }
-
+ */
 .post-list-item {
-    color: black;
-    padding: 12px 18px 12px 18px;
+    padding: 16px 24px 16px 24px;
 }
 
     .post-list-item .subreddit {
-        color: #a10705;
+        color: #8cd5ff;
         font-weight: bold;
     }
 
     .post-list-item .posted-by {
-        color: #a10705;
+        color: #8cd5ff;
         font-weight: bold;
     }
 
@@ -64,18 +62,12 @@
     {
         font-size: 18px;
         font-weight: bold;
-        color: #273445;
         padding: 12px 0 12px 0;
         background-color: transparent;
     }
 
     .post-list-item .score {
-        color: white;
         font-weight: bold;
-        font-size: 20px;
-        background-color: #ffa154;
-        border-radius: 5px;
-        padding: 0px 6px 0px 6px;
     }
 
     .post-list-item .date-posted {
@@ -85,5 +77,12 @@
 
 .post-details, 
 .post-details .media {
-    background-color: #d4d4d4;
+}
+
+.post-details {
+    padding: 24px;
+}
+
+.post-details-title {
+    font-weight: bold;
 }

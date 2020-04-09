@@ -10,9 +10,8 @@ using Screens;
     
 public class ReadIt.AppMainWindow : Gtk.ApplicationWindow {
 
+    // Global action dispatcher.
     Dispatcher _dispatcher = Dispatcher.INSTANCE;
-
-    UserStore _user_store = new UserStore();
 
     public AppMainWindow(ReadIt.Main readit){
         Object(
@@ -29,7 +28,6 @@ public class ReadIt.AppMainWindow : Gtk.ApplicationWindow {
         var header_bar = new AppHeaderBar();
         set_titlebar(header_bar);
 
-        
         add(new PostScreen());        
 
         // Bind event handlers.

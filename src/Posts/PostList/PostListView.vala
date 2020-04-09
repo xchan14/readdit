@@ -6,37 +6,59 @@ using Posts.PostList.PostListItem;
 namespace Posts.PostList { 
 
     public class PostListView : Gtk.ScrolledWindow {
+        // Reference to post store.
+        PostStore _post_store;
+        // Reference to global dispatcher.
         ReadIt.Dispatcher _dispatcher = ReadIt.Dispatcher.INSTANCE;
+        // Listbox widget for the list of posts.
         Gtk.ListBox _listbox = new Gtk.ListBox();
-        ArrayList<string> _added_ids; 
+        // Data store behind the posts listbox.
+        ListStore _posts_list_store;
 
         construct 
         {
-            _added_ids = new ArrayList<string>();
-            _listbox.activate_on_single_click = true;
-            _listbox.selection_mode = Gtk.SelectionMode.BROWSE;
-            _listbox.get_style_context().add_class("post-list-listbox");
-
             get_style_context().add_class("post-list");
             set_size_request(400, 1);
             set_propagate_natural_width(true);
+            hscrollbar_policy = Gtk.PolicyType.NEVER;
+
+            this._post_store = PostStore.INSTANCE;
+
+            this._posts_list_store = new ListStore(typeof(Post));
+
+            this._listbox.activate_on_single_click = true;
+            this._listbox.selection_mode = Gtk.SelectionMode.BROWSE;
+            this._listbox.get_style_context().add_class("post-list-listbox");
+            this._listbox.bind_model(_posts_list_store, create_list_item_widget);
+
+            add(_listbox);
 
             bind_event_handlers();
-            add(_listbox);
         }
 
+        // Bind event handlers.
         private void bind_event_handlers() {
-            edge_reached.connect(on_edge_reached);
-            _listbox.row_selected.connect(on_listbox_row_selected);
-            PostStore.INSTANCE.posts_loaded.connect(on_posts_loaded);
+            this.edge_reached.connect(on_edge_reached);
+            this._listbox.row_selected.connect(on_listbox_row_selected);
+            this._post_store.posts_loaded.connect(on_posts_loaded);
         }
 
         private void on_edge_reached(Gtk.PositionType pos) {
             if(pos == Gtk.PositionType.BOTTOM) {
-                _dispatcher.dispatch(new LoadMorePostsAction(null));
+                // Infinite scroll implementation.
+                this._dispatcher.dispatch(new LoadMorePostsAction(null));
             }
         }
 
+        // Creates the widget to be displayed on post listbox widget.
+        private Gtk.Widget create_list_item_widget(Object item) {
+            var post = (Post) item;
+            var view = new PostListItemView(post);
+            view.title_pressed.connect(on_item_title_pressed);
+            return view;
+        }
+
+        // Handles row selected event of listbox.
         private void on_listbox_row_selected(Gtk.ListBoxRow? row) {
             string id = null;
             if(row != null) {
@@ -47,13 +69,7 @@ namespace Posts.PostList {
             _dispatcher.dispatch(new ViewPostAction(id));
         }
 
-        private void add_post(PostListItemViewModel model) {
-            var post_list_item_view = new PostListItemView(model);
-            post_list_item_view.title_pressed.connect(on_item_title_pressed);
-            this._listbox.add(post_list_item_view);
-            _added_ids.add(model.id);
-        }
-
+        // Handles button pressed of title in child widget.
         private void on_item_title_pressed(string id) {
             foreach(var child in this._listbox.get_children()) {
                 var row = (Gtk.ListBoxRow) child;
@@ -65,18 +81,11 @@ namespace Posts.PostList {
             }
         }
 
+        // Handles new posts loaded event.
         private void on_posts_loaded(Iterable<Post> posts) {
+            this._posts_list_store.remove_all();
             foreach(Post post in posts) {
-                if(_added_ids.contains(post.id))
-                    continue;
-                var model = new PostListItemViewModel();
-                model.id = post.id;
-                model.title = post.title;
-                model.subreddit = post.subreddit;
-                model.score = post.score;
-                model.date_created = post.date_created;
-                model.date_loaded = post.date_loaded;
-                add_post(model);
+                this._posts_list_store.append(post);
             }
         }
 

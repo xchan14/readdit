@@ -1,7 +1,7 @@
 
 namespace Posts.PostDetails {
 
-    public class NoSelectedPostDetailsView : Gtk.Box {
+    public class EmptyPostDetailsView : Gtk.Box {
 
         construct {
             orientation = Gtk.Orientation.VERTICAL;

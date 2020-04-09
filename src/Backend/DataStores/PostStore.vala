@@ -92,7 +92,6 @@ namespace Backend.DataStores {
                         .get_array_member("children"); 
 
                     GLib.List<weak Json.Node> items = post_items.get_elements();
-                    uint count = post_items.get_length(); 
                     foreach(Json.Node post_node in items) {
                         Post post = map_post_from_json(post_node);
                         this._loaded_posts.set(post.id, post);
@@ -101,9 +100,6 @@ namespace Backend.DataStores {
                 } catch(Error e) {
                     stderr.printf("Error: %s\n", e.message);
                 }
-
-                //new UserStore().get_user_data_by_ids(post_by_ids.to_array());
-
 
                 stdout.printf("Caching posts finished...\n");
 
@@ -123,6 +119,7 @@ namespace Backend.DataStores {
             post.body_text = post_data.get_string_member("selftext_html");
             post.score = (int) post_data.get_int_member("score");
             post.subreddit = post_data.get_string_member("subreddit_name_prefixed");
+            post.posted_by = post_data.get_string_member("author");
             post.posted_by_id = post_data.get_string_member("author_fullname");
             post.date_created = new DateTime.from_unix_local((long)post_data.get_double_member("created_utc"));
             post.date_loaded = new DateTime.now_utc();

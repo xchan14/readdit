@@ -1,10 +1,11 @@
 
 namespace Posts { 
 
-    public class Post {  
+    public class Post : Object {  
         public string id { get; set; }
         public string title { get; set; }
         public int score { get; set; }
+        public string posted_by { get; set; }
         public string posted_by_id { get ;set; }
         public string subreddit { get; set; }
         public DateTime date_created { get ;set; }

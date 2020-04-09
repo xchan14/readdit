@@ -35,6 +35,6 @@ public class ReadIt.Main : Gtk.Application {
     }
 
     protected override void activate(){
-        var main_window = new AppMainWindow(this);
+        new AppMainWindow(this);
     }
 }

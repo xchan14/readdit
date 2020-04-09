@@ -15,14 +15,15 @@ public class Screens.PostScreen : Gtk.Paned {
 
         this._post_list_view = new PostListView();
         this._details_view_wrapper = new Gtk.ScrolledWindow(null, null);
+        this._details_view_wrapper.hscrollbar_policy = Gtk.PolicyType.NEVER;
         this._post_details_view = new PostDetailsView();
-        this._empty_details_view = new NoSelectedPostDetailsView();
+        this._empty_details_view = new EmptyPostDetailsView();
 
         this._details_view_wrapper.add(this._empty_details_view);
 
         pack1(this._post_list_view, true, false);
-        add2(this._details_view_wrapper);
-        set_position(1);
+        pack2(this._details_view_wrapper, true, false);
+        set_position(2);
 
         PostStore.INSTANCE.viewed_post_changed.connect((post) => {
             foreach(var child in this._details_view_wrapper.get_children()) {
