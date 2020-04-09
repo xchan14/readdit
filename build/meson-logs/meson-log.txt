@@ -1,4 +1,4 @@
-Build started at 2020-04-05T20:54:01.007891
+Build started at 2020-04-09T13:45:32.737098
 Main binary: /usr/bin/python3
 Python system: Linux
 The Meson build system
@@ -23,8 +23,8 @@ Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
 Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
 -lglib-2.0
 Running compile:
-Working directory:  /tmp/tmp_mbp0890
-Command line:  cc /tmp/tmp_mbp0890/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmp_mbp0890/output.exe -O0 
+Working directory:  /tmp/tmpsz8mips5
+Command line:  cc /tmp/tmpsz8mips5/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmpsz8mips5/output.exe -O0 
 
 Code:
  #include<stdio.h>
@@ -45,8 +45,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /tmp/tmpg4zltx3f
-Command line:  cc /tmp/tmpg4zltx3f/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpg4zltx3f/output.obj -O0 --print-search-dirs 
+Working directory:  /tmp/tmpo35b4ro0
+Command line:  cc /tmp/tmpo35b4ro0/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpo35b4ro0/output.obj -O0 --print-search-dirs 
 
 Code:
  
@@ -59,5 +59,9 @@ Compiler stderr:
  
 Dependency gtk+-3.0 found: YES (cached)
 Dependency granite found: YES (cached)
+Dependency gee-0.8 found: YES (cached)
+Dependency libsoup-2.4 found: YES (cached)
+Dependency json-glib-1.0 found: YES (cached)
+Dependency gio-2.0 found: YES (cached)
 Build targets in project: 8
 Found ninja-1.8.2 at /usr/bin/ninja

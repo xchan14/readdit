@@ -1,5 +1,5 @@
 
-namespace Posts { 
+namespace Posts.PostList.PostListItem { 
 
     public class PostListItemView : Gtk.Grid {
 
@@ -9,14 +9,19 @@ namespace Posts {
         Gtk.Label _subreddit;
         Gtk.Label _date_posted;
 
-        public PostListItemView(Post post)
+        private PostListItemViewModel _model;
+
+        public signal void title_pressed(string post_id);
+
+        public PostListItemView(PostListItemViewModel model)
         {
             var style = get_style_context();
             style.add_class("post-list-item");
 
             _title =  new Gtk.Label(null);
             _title.get_style_context().add_class("post-title");
-            _title.justify = Gtk.Justification.FILL;
+            _title.selectable = true;
+            _title.xalign = 0.0f;
             _title.wrap = true;
  
             _score = new Gtk.Label(null);
@@ -24,16 +29,13 @@ namespace Posts {
 
             _subreddit = new Gtk.Label(null);
             _subreddit.get_style_context().add_class("subreddit");
-            _subreddit.xalign = 1.0f;
 
             _posted_by = new Gtk.Label(null);
             _posted_by.get_style_context().add_class("posted-by");
-            _posted_by.xalign = 1.0f;
 
             _date_posted = new Gtk.Label(null);
             _date_posted.get_style_context().add_class("date-posted");
             _date_posted.xalign = 0.0f;
-
 
             var header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             header.baseline_position = Gtk.BaselinePosition.BOTTOM;
@@ -49,15 +51,31 @@ namespace Posts {
 
             attach(_date_posted, 1, 3, 3, 1);
            
-            assign_data(post);
+            show_all();
+
+            update_values(model);
+            this._title.button_press_event.connect(() => {
+                title_pressed(this._model.id);
+                return false;
+            });
         }
 
-        private void assign_data(Post data) {
-            _title.label = data.Title;
-            _score.label = data.Score.to_string();
-            _posted_by.label = data.PostedBy;
-            _subreddit.label = data.Subreddit;
-            _date_posted.label = data.DateCreated.format("%x");
+        public PostListItemViewModel model { get { return _model; } } 
+
+        private void update_values(PostListItemViewModel model) {
+            this._model = model;
+            _title.label = model.title;
+            _score.label = model.score.to_string();
+            _subreddit.label = model.subreddit;
+            _posted_by.label = model.posted_by;
+
+            string date_format = "%B %e, %Y";
+            /*  bool is_same_day = new DateTime.now_local().format(date_format) == model.date_created.to_local().format(date_format);
+            if(is_same_day) {
+                date_format = date_format + "%i %P";
+            }  */
+            _date_posted.label = model.date_created.to_local().format(date_format);
+
         }
 
     }

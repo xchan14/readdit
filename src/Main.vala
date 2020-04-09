@@ -19,10 +19,8 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using Widgets;
 
-
-public class Main : Gtk.Application {
+public class ReadIt.Main : Gtk.Application {
 
     public Main(){
         Object(
@@ -37,6 +35,6 @@ public class Main : Gtk.Application {
     }
 
     protected override void activate(){
-        new AppMainWindow(this);
+        var main_window = new AppMainWindow(this);
     }
 }

@@ -2,6 +2,7 @@
 .app-main {
     min-height: 900px;
     color: #1a1a1a;
+    background-color:  white;
 }
 
 /*
@@ -23,7 +24,7 @@
     background-color: transparent;
 }
 
-.app-body {
+.post-view {
     min-height: 600px;
 }
 
@@ -36,6 +37,7 @@
 }
     .post-list-listbox row {
         border-bottom: 1px solid #C4C4C4;
+        background-color: transparent;
     }
 
     .post-list-listbox row:selected {
@@ -48,27 +50,30 @@
 }
 
     .post-list-item .subreddit {
-        color: #3689e6;
+        color: #a10705;
         font-weight: bold;
     }
 
     .post-list-item .posted-by {
-        color: #3689e6;
+        color: #a10705;
         font-weight: bold;
     }
 
-    .post-list-item .post-title {
+    .post-list-item .post-title,
+    .post-list-item .post-title text
+    {
         font-size: 18px;
-        color: #1a1a1a;
-        line-height: 1.6;
+        font-weight: bold;
+        color: #273445;
         padding: 12px 0 12px 0;
+        background-color: transparent;
     }
 
     .post-list-item .score {
         color: white;
         font-weight: bold;
         font-size: 20px;
-        background-color: #a3907c;
+        background-color: #ffa154;
         border-radius: 5px;
         padding: 0px 6px 0px 6px;
     }
