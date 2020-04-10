@@ -33,16 +33,18 @@ executable(
     'src/Posts/Post.vala',
     'src/Posts/PostDetails/NoSelectedPostDetailsView.vala',
     'src/Posts/PostDetails/PostDetailsView.vala',
-    'src/Posts/PostDetails/PostDetailsViewModel.vala',
+   
     'src/Posts/PostList/LoadMorePostsAction.vala',
+    'src/Posts/PostList/LoadPostPreviewAction.vala',
     'src/Posts/PostList/PostListView.vala',
+    'src/Posts/PostList/PostListItemView.vala',
     'src/Posts/PostList/ViewPostAction.vala',
-    'src/Posts/PostList/PostListItem/PostListItemView.vala',
-    'src/Posts/PostList/PostListItem/PostListItemViewModel.vala',
 
     'src/Screens/PostScreen.vala',
 
     'src/Users/User.vala',
+
+    'src/Utils/ImageUtils.vala',
     
     dependencies: [
         dependency('gtk+-3.0'),

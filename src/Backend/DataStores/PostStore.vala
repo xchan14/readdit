@@ -1,14 +1,14 @@
-using Posts;
 using Gee;
-using ReadIt;
-using Posts.PostList;
+using ReadIt.Posts;
+using ReadIt.Posts.PostList;
 
-namespace Backend.DataStores {
+namespace ReadIt.Backend.DataStores {
 
     public class PostStore : Object {
         private static PostStore _instance;
 
         public signal void posts_loaded(Iterable<Post> posts);
+        public signal void post_preview_loaded(string id, string? path);
         public signal void viewed_post_changed(Post post);
 
         private HashMap<string, Post> _loaded_posts = new HashMap<string, Post>();
@@ -48,15 +48,15 @@ namespace Backend.DataStores {
 
         private PostStore() { 
             Dispatcher.INSTANCE.action_dispatched.connect((action) => {
-                switch(action.name) {
-                    case "load_more_posts_action":
-                        var load_posts_action = (LoadMorePostsAction) action;
-                        load_posts(load_posts_action.subreddit);
-                        break;
-                    case "view_post_action":
-                        var view_post_action = (ViewPostAction) action;
-                        view_post(view_post_action.post_id);
-                        break;
+                if(action is LoadMorePostsAction) {
+                    var load_posts_action = (LoadMorePostsAction) action;
+                    load_posts(load_posts_action.subreddit);
+                } else if (action is ViewPostAction) {
+                    var view_post_action = (ViewPostAction) action;
+                    view_post(view_post_action.post_id);
+                } else if (action is LoadPostPreviewAction) {
+                    var load_post_preview_action = (LoadPostPreviewAction) action;
+                    load_post_preview(load_post_preview_action.post_id, load_post_preview_action.url);
                 }
             });
         }
@@ -73,7 +73,7 @@ namespace Backend.DataStores {
             }
             var session = new Soup.Session();
             var url = "https://reddit.com/" + subreddit + ".json?"
-                    + "&limit=10"
+                    + "&limit=40"
                     + "&after=" + _last_post_id_loaded;
 
             stdout.printf("Getting post from api...\nurl: %s\n", url);
@@ -111,17 +111,30 @@ namespace Backend.DataStores {
         }
 
         private Post map_post_from_json(Json.Node post_node) {
-            var post_data = post_node.get_object()
-                            .get_object_member("data");
+            var post_data = post_node.get_object().get_object_member("data");
             var post = new Post(); 
             post.id = post_data.get_string_member("name");
             post.title = post_data.get_string_member("title");
-            post.body_text = post_data.get_string_member("selftext_html");
+            post.body_text = post_data.get_string_member("selftext");
             post.score = (int) post_data.get_int_member("score");
             post.subreddit = post_data.get_string_member("subreddit_name_prefixed");
             post.posted_by = post_data.get_string_member("author");
             post.posted_by_id = post_data.get_string_member("author_fullname");
             post.date_created = new DateTime.from_unix_local((long)post_data.get_double_member("created_utc"));
+            
+            // Cache preview image file.
+            Json.Object preview_object = post_data.get_object_member("preview");
+            if(preview_object != null) {
+                Json.Object image_object = preview_object.get_array_member("images").get_element(0).get_object();
+                if(image_object != null) {
+                    Json.Object resolutions_object = image_object.get_array_member("resolutions").get_element(1).get_object();
+                    if(resolutions_object != null) {
+                        post.preview_url = resolutions_object.get_string_member("url").replace("&amp;" ,"&");
+                        stdout.printf("url: %s\n", post.preview_url);
+                    }
+                }
+            }
+
             post.date_loaded = new DateTime.now_utc();
             return post;
         }
@@ -129,6 +142,33 @@ namespace Backend.DataStores {
         private void view_post(string post_id) {
             _current_viewed_post = _loaded_posts[post_id];
             viewed_post_changed(_current_viewed_post);
+        }
+
+        private void load_post_preview(string post_id, string url) {
+            // Create cache file.
+            string path = null;
+            try {
+                Post post = _loaded_posts[post_id];
+                string preview_dir = Environment.get_user_cache_dir() 
+                    + "/" + Environment.get_application_name() 
+                    + "/posts/previews";
+                File file_preview_dir  = File.new_for_path(preview_dir);
+                if(!file_preview_dir.query_exists(null)) {
+                    file_preview_dir.make_directory_with_parents(null); 
+                }
+
+                post.preview_path = preview_dir + "/" + post.id + ".png";
+                File file_preview_path = File.new_for_path(post.preview_path);
+                if(!file_preview_path.query_exists(null)) {
+                    file_preview_path.create(FileCreateFlags.NONE, null);
+                    var file_preview_url = File.new_for_uri(post.preview_url);
+                    file_preview_url.move(file_preview_path, FileCopyFlags.OVERWRITE,  null, null);
+                } 
+                post_preview_loaded(post_id, post.preview_path);
+                path = post.preview_path;
+            } catch(Error e) {
+                stderr.printf("%s\n", e.message);
+            }
         }
 
     }

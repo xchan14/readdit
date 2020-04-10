@@ -1,5 +1,5 @@
 
-namespace  Comments { 
+namespace ReadIt.Comments { 
 
     public class CommentItem  : Gtk.Label {
 

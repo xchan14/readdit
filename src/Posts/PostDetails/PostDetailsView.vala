@@ -1,8 +1,8 @@
-using Comments;
-using Posts.PostDetails;
-using Backend.DataStores;
+using ReadIt.Comments;
+using ReadIt.Posts.PostDetails;
+using ReadIt.Backend.DataStores;
 
-namespace Posts.PostDetails { 
+namespace ReadIt.Posts.PostDetails { 
     
     public class PostDetailsView : Gtk.Box {
 
@@ -28,13 +28,12 @@ namespace Posts.PostDetails {
             this._text_widget = new Gtk.Label(null);
             this._text_widget.xalign = 0.0f;
             this._text_widget.wrap = true;
-            this._text_widget.use_markup = true;
             this._text_widget.selectable = true;
 
             var comments = new CommentList();
 
-            pack_start(this._title_widget, false, false, 0);
             pack_start(this._media_widget, false, false, 0);
+            pack_start(this._title_widget, false, false, 0);
             pack_start(this._text_widget, false, false, 0);
             pack_start(comments, false, false, 0);
 

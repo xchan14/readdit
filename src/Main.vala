@@ -19,7 +19,6 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-
 public class ReadIt.Main : Gtk.Application {
 
     public Main(){

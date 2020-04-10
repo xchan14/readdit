@@ -66,6 +66,10 @@
         background-color: transparent;
     }
 
+    .post-list-item .post-preview-wrapper {
+        background-color: black;
+    }
+
     .post-list-item .score {
         font-weight: bold;
     }

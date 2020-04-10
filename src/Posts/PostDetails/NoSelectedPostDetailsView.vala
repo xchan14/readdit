@@ -1,5 +1,5 @@
 
-namespace Posts.PostDetails {
+namespace ReadIt.Posts.PostDetails {
 
     public class EmptyPostDetailsView : Gtk.Box {
 

@@ -1,13 +1,13 @@
-using Backend.DataStores;
-using Users;
 using Gee;
-using Posts.PostList.PostListItem;
+using ReadIt.Backend.DataStores;
+using ReadIt.Posts.PostList.PostListItem;
+using ReadIt.Users;
 
-namespace Posts.PostList { 
+namespace ReadIt.Posts.PostList { 
 
     public class PostListView : Gtk.ScrolledWindow {
         // Reference to post store.
-        PostStore _post_store;
+        PostStore _post_store = PostStore.INSTANCE;
         // Reference to global dispatcher.
         ReadIt.Dispatcher _dispatcher = ReadIt.Dispatcher.INSTANCE;
         // Listbox widget for the list of posts.
@@ -21,8 +21,6 @@ namespace Posts.PostList {
             set_size_request(400, 1);
             set_propagate_natural_width(true);
             hscrollbar_policy = Gtk.PolicyType.NEVER;
-
-            this._post_store = PostStore.INSTANCE;
 
             this._posts_list_store = new ListStore(typeof(Post));
 

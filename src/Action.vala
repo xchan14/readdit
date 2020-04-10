@@ -1,6 +1,6 @@
 
 public interface Action : Object {
 
-    public abstract string name { get; }
+    public DateTime created_at  { owned get { return new DateTime.now_local(); } }
 
 }

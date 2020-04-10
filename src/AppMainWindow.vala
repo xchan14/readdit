@@ -1,14 +1,15 @@
-using Gtk;
-using Gdk;
-using Backend.DataStores;
-using Posts;
-using Users;
 using Gee;
-using Posts.PostList;
-using Posts.PostDetails;
-using Screens;
+using Gdk;
+using Gtk;
+using ReadIt.Backend.DataStores;
+using ReadIt.Posts;
+using ReadIt.Users;
+using ReadIt.Posts.PostList;
+using ReadIt.Posts.PostDetails;
+using ReadIt.Screens;
     
 public class ReadIt.AppMainWindow : Gtk.ApplicationWindow {
+    PostStore _post_store = PostStore.INSTANCE;
 
     // Global action dispatcher.
     Dispatcher _dispatcher = Dispatcher.INSTANCE;

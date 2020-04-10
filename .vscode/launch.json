@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "${workspaceFolder}/run.sh",
+            "program": "${workspaceFolder}/build/com.github.xchan14.readit",
             "args": [],
             "cwd": "${workspaceFolder}/build"
         }

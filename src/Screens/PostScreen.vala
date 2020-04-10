@@ -1,9 +1,10 @@
-using Posts;
-using Posts.PostList;
-using Posts.PostDetails;
-using Backend.DataStores;
+using ReadIt.Backend.DataStores;
+using ReadIt.Posts;
+using ReadIt.Posts.PostList;
+using ReadIt.Posts.PostDetails;
 
-public class Screens.PostScreen : Gtk.Paned {
+public class ReadIt.Screens.PostScreen : Gtk.Paned {
+    PostStore _post_store = PostStore.INSTANCE;
 
     PostListView _post_list_view;
     PostDetailsView _post_details_view;
@@ -25,7 +26,7 @@ public class Screens.PostScreen : Gtk.Paned {
         pack2(this._details_view_wrapper, true, false);
         set_position(2);
 
-        PostStore.INSTANCE.viewed_post_changed.connect((post) => {
+        _post_store.viewed_post_changed.connect((post) => {
             foreach(var child in this._details_view_wrapper.get_children()) {
                 child.destroy();
             }

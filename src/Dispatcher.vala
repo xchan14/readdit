@@ -2,8 +2,8 @@ using Gee;
 
 public class ReadIt.Dispatcher : Object  {
     private static Dispatcher _instance;
-
     public delegate void ActionCallback(Action action);
+
     public signal void action_dispatched(Action action);
 
     public static Dispatcher INSTANCE {
@@ -18,5 +18,4 @@ public class ReadIt.Dispatcher : Object  {
     public void dispatch(Action action) {
         action_dispatched(action);
     }
-
 }

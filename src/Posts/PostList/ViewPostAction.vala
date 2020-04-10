@@ -1,12 +1,7 @@
 
-public class Posts.PostList.ViewPostAction : Object, Action {
-
-    private string _id;
-
-    public ViewPostAction(string id) {
-        _id = id;
+public class ReadIt.Posts.PostList.ViewPostAction : Object, Action {
+    public ViewPostAction(string post_id) { 
+        Object(post_id: post_id);
     }
-
-    public override string name { get {  return "view_post_action"; } }
-    public string post_id { get { return _id; } }
+    public string post_id { get; construct; }
 }
