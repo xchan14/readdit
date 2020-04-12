@@ -46,6 +46,7 @@
 .post-list-item {
     padding: 16px 24px 16px 24px;
 }
+    
 
     .post-list-item .subreddit {
         color: #8cd5ff;
@@ -66,8 +67,9 @@
         background-color: transparent;
     }
 
-    .post-list-item .post-preview-wrapper {
-        background-color: black;
+    .post-list-item image.thumbnail {
+        box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.75);
+        background-color: #333;
     }
 
     .post-list-item .score {
@@ -89,4 +91,10 @@
 
 .post-details-title {
     font-weight: bold;
+}
+
+.post-details .post-image {
+    box-shadow: 0px 2px 15px 0px #000000;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }

@@ -18,19 +18,20 @@ executable(
     asresources,
 
     'src/Action.vala',
+    'src/Application.vala',
     'src/AppHeaderBar.vala',
-    'src/AppMainWindow.vala',
     'src/Dispatcher.vala',
-    'src/Main.vala',
+    'src/MainWindow.vala',
 
-    'src/Backend/DataStores/PostStore.vala',
-    'src/Backend/DataStores/UserStore.vala',
+    'src/DataStores/PostStore.vala',
+    'src/DataStores/UserStore.vala',
 
     'src/Comments/CommentItem.vala',
     'src/Comments/CommentList.vala',
 
 
     'src/Posts/Post.vala',
+    'src/Posts/PostDetails/LoadPostDetailsImageAction.vala',
     'src/Posts/PostDetails/NoSelectedPostDetailsView.vala',
     'src/Posts/PostDetails/PostDetailsView.vala',
    

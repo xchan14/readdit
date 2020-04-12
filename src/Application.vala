@@ -19,9 +19,9 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReadIt.Main : Gtk.Application {
+public class ReadIt.Application : Gtk.Application {
 
-    public Main(){
+    public Application(){
         Object(
             application_id: "com.github.xchan14.readit",
             flags: ApplicationFlags.FLAGS_NONE
@@ -29,11 +29,12 @@ public class ReadIt.Main : Gtk.Application {
     }
 
     public static int main (string[] args){
-        var app = new Main();
+        var app = new Application();
         return app.run(args);
     }
 
     protected override void activate(){
-        new AppMainWindow(this);
+        var window = new MainWindow(this);
+        window.destroy.connect( s => Gtk.main_quit());
     }
 }

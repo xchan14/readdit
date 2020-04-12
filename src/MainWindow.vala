@@ -8,13 +8,12 @@ using ReadIt.Posts.PostList;
 using ReadIt.Posts.PostDetails;
 using ReadIt.Screens;
     
-public class ReadIt.AppMainWindow : Gtk.ApplicationWindow {
-    PostStore _post_store = PostStore.INSTANCE;
+public class ReadIt.MainWindow : Gtk.ApplicationWindow {
 
     // Global action dispatcher.
     Dispatcher _dispatcher = Dispatcher.INSTANCE;
 
-    public AppMainWindow(ReadIt.Main readit){
+    public MainWindow(ReadIt.Application readit){
         Object(
             application: readit
         );

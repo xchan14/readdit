@@ -7,6 +7,8 @@ namespace ReadIt.Posts.PostList.PostListItem {
         Dispatcher _dispatcher = Dispatcher.INSTANCE;
         PostStore _post_store = PostStore.INSTANCE;
 
+        Gtk.Box _header_wrapper;
+        Gtk.Box _footer_wrapper;
         Gtk.Label _title;
         Gtk.Label _score;
         Gtk.Label _posted_by;
@@ -16,18 +18,16 @@ namespace ReadIt.Posts.PostList.PostListItem {
         Gtk.Box _preview_wrapper;
         Gtk.Image _preview;
 
-        public signal void title_pressed(string post_id);
+        private bool _preview_shown;
 
         public PostListItemView(Post post)
         {
-            this._post_store.post_preview_loaded.connect(on_post_preview_loaded);
-
             this.model = post;
             var style = get_style_context();
             style.add_class("post-list-item");
             this.hexpand = true;
             this.column_homogeneous = true;
-            this.row_spacing = 1;
+            this.row_spacing = 5;
 
             this._title =  new Gtk.Label(null);
             this._title.label = post.title;
@@ -39,10 +39,9 @@ namespace ReadIt.Posts.PostList.PostListItem {
             this._title.ellipsize = Pango.EllipsizeMode.END;
 
             this._preview = new Gtk.Image();
-            this._preview.get_style_context().add_class("post-preview");
             this._preview_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            this._preview_wrapper.get_style_context().add_class("post-preview-wrapper");
-            this._preview_wrapper.pack_start(this._preview);
+            this._preview_wrapper.halign = Gtk.Align.CENTER;
+            this._preview_wrapper.pack_start(this._preview, true, true, 0);
 
             this._score = new Gtk.Label(null);
             this._score.label = post.score.to_string();
@@ -67,62 +66,57 @@ namespace ReadIt.Posts.PostList.PostListItem {
             }  */
             this._date_posted.label = model.date_created.to_local().format(date_format);
 
-            this._title.button_press_event.connect(() => 
-            {
-                title_pressed(this._model.id);
-                return false;
-            });
 
-            set_row_baseline_position(2, Gtk.BaselinePosition.TOP);
-
-            if(this.model.preview_url != null) {
-                _dispatcher.dispatch(new LoadPostPreviewAction(this.model.id, this.model.preview_url));
-            }
-
-            reattach_children();
-        }
-
-        public Post model { get; set; } 
-        
-        private void reattach_children() {
-            forall((widget) => {
-                widget.destroy();
-            });
-
-            var header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            header.baseline_position = Gtk.BaselinePosition.BOTTOM;
-            header.pack_start(_score, false, false, 0);
-            header.pack_start(new Gtk.Label(" "), false, false, 0);
-            header.pack_start(_posted_by, false, false, 0);
-            header.pack_start(new Gtk.Label(" in "), false, false, 0);
-            header.pack_start(_subreddit, false, false, 0);
-            header.forall((widget) => {
+            this._header_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            this._header_wrapper.baseline_position = Gtk.BaselinePosition.BOTTOM;
+            this._header_wrapper.pack_start(_score, false, false, 0);
+            this._header_wrapper.pack_start(new Gtk.Label(" "), false, false, 0);
+            this._header_wrapper.pack_start(_posted_by, false, false, 0);
+            this._header_wrapper.pack_start(new Gtk.Label(" in "), false, false, 0);
+            this._header_wrapper.pack_start(_subreddit, false, false, 0);
+            this._header_wrapper.forall((widget) => {
                 ((Gtk.Label)widget).valign = Gtk.Align.END;
             });
-            var footer = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            footer.pack_start(this._date_posted);
 
-            attach(header, 1, 1, 3, 1);
+            this._footer_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            this._footer_wrapper.pack_start(this._date_posted);
+
+            attach(this._header_wrapper, 1, 1, 3, 1);
             if(this.model.preview_url != null) {
                 attach(this._title, 1, 2, 2, 1);
-                attach(this._preview, 3, 2, 1, 1);
+                attach(this._preview_wrapper, 3, 2, 1, 1);
             } else {
                 attach(this._title, 1, 2, 3, 1);
             }
-            attach(footer, 1, 3, 2, 1);
+            attach(this._footer_wrapper, 1, 3, 2, 1);
+
+            set_row_baseline_position(2, Gtk.BaselinePosition.CENTER);
 
             show_all();
+             
+            this._post_store.emit_change.connect(on_post_store_emit_changed);
+
+            this.map.connect(() => {
+                if(this.model.preview_url != null) {
+                    this._dispatcher.dispatch(new LoadPostPreviewAction(this.model.id, this.model.preview_url));
+                }
+            });
         }
 
-        private void on_post_preview_loaded(string id, string? path) {
-            if(id != this.model.id)
-                return;
+        public Post model { get; set; } 
 
-            if(path == null) 
+        private void on_post_store_emit_changed() {
+            if(this.model.preview_path != null && !this._preview_shown) {
+                load_post_preview();
+            }
+        }
+
+        private void load_post_preview() {
+            if(this.model.preview_path == null)
                 return;
 
             try {
-                var preview_pixbuf = new Gdk.Pixbuf.from_file(path);
+                var preview_pixbuf = new Gdk.Pixbuf.from_file(this.model.preview_path);
                 int height = preview_pixbuf.get_height();
                 int width = preview_pixbuf.get_width();
 
@@ -142,11 +136,16 @@ namespace ReadIt.Posts.PostList.PostListItem {
                     new_height = (int) ((double)height * width_multiplier);
                 }
                 preview_pixbuf = preview_pixbuf.scale_simple(new_width, new_height, Gdk.InterpType.BILINEAR);
-                this._preview = new Gtk.Image.from_pixbuf(preview_pixbuf);
 
-                reattach_children();
+                this._preview = new Gtk.Image.from_pixbuf(preview_pixbuf);
+                this._preview.get_style_context().add_class("thumbnail");
+                this._preview_wrapper.foreach(w => w.destroy());
+                this._preview_wrapper.pack_start(this._preview, false, false, 0);
+                this._preview_wrapper.show_all();
             } catch(Error e) {
                 stderr.printf(e.message);
+            } finally {
+                this._preview_shown = true;
             }
         }
     }

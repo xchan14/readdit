@@ -10,8 +10,13 @@ namespace ReadIt.Posts {
         public string subreddit { get; set; }
         public DateTime date_created { get ;set; }
         public string body_text { get; set; }
-        public string preview_url { get; set; }
-        public string preview_path { get; set; }
+        public string? image_url { get; set; }
+        public string? image_path { get; set; }
+        public string? preview_url { get; set; }
+        public string? preview_path { get; set; }
+        public bool is_video { get; set; }
+        public string medial_url { get; set; }
+
         public DateTime date_loaded { get; set; }
     }
     
