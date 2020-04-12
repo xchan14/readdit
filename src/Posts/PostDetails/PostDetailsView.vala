@@ -68,19 +68,22 @@ namespace ReadIt.Posts.PostDetails {
                 this._image_loaded = false;
                 update_viewed_post(); 
             } 
+
+            if(!this._image_loaded) {
+                this._media_wrapper.foreach(w => w.destroy());
+                if(this.model.image_path != null) {
+                    load_image();
+                } else if(this.model.image_url != null) {
+                    this._dispatcher.dispatch(new LoadPostDetailsImageAction(this.model.id, this.model.image_url));
+                } 
+            }
         }
 
         public void update_viewed_post() {
             this._title_widget.label = this.model.title;
             this._text_widget.label = this.model.body_text;
 
-            if(this.model.image_path != null) {
-                load_image();
-            } else if(this.model.image_url != null) {
-                this._dispatcher.dispatch(new LoadPostDetailsImageAction(this.model.id, this.model.image_url));
-            } else {
-                this._media_wrapper.foreach(w => w.destroy());
-            }
+            
         }
            
         private void load_image() {
