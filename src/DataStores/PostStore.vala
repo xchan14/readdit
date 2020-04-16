@@ -2,11 +2,13 @@ using Gee;
 using ReadIt.Posts;
 using ReadIt.Posts.PostList;
 using ReadIt.Posts.PostDetails;
+using ReadIt.Posts.PostDetails.Comments;
 
 namespace ReadIt.Backend.DataStores {
 
     public class PostStore : Object {
         private static PostStore _instance;
+        private static string REDDIT_API = "http://reddit.com";
 
         public signal void emit_change();
 
@@ -69,6 +71,9 @@ namespace ReadIt.Backend.DataStores {
             } else if (dispatched_action is LoadPostDetailsImageAction) {
                 var action = (LoadPostDetailsImageAction) dispatched_action;
                 load_post_details_image_action(action.post_id, action.image_url);
+            } else if (dispatched_action is LoadPostCommentsAction) {
+                var action = (LoadPostCommentsAction) dispatched_action;
+                load_comments(action.post_id, action.after);
             }
         }
 
@@ -82,7 +87,7 @@ namespace ReadIt.Backend.DataStores {
                 this._loaded_posts.clear();
             }
             var session = new Soup.Session();
-            var url = "https://reddit.com/" + subreddit + ".json?"
+            var url = REDDIT_API + "/" + subreddit + ".json?"
                     + "&limit=20"
                     + "&after=" + _last_post_id_loaded;
 
@@ -234,6 +239,52 @@ namespace ReadIt.Backend.DataStores {
                 post.image_path = null;
                 stderr.printf("%s\n", e.message);
             } 
+        }
+
+        private void load_comments(string post_id, string? after) {
+            string url = REDDIT_API + "/" + this._current_viewed_post.subreddit + "/comments/article.json?"
+                + "article=" + this._current_viewed_post.id.replace("t3_", "")
+                + "&after=" + after;
+
+            var message = new Soup.Message("GET", url);
+            var session = new Soup.Session();
+
+            session.queue_message(message, (sess, mess) => {
+                var parser = new Json.Parser();
+
+                try {
+                    stdout.printf("Parsing data from response.\n");
+                    string data = (string)message.response_body.flatten().data;
+                    parser.load_from_data(data, -1);
+                    var root_object = parser.get_root().get_array();
+                    GLib.List<weak Json.Node> json_comments = root_object.get_element(1) 
+                        .get_object() 
+                        .get_object_member("data") 
+                        .get_array_member("children")
+                        .get_elements();
+
+                    var comments = new ArrayList<Comment>();
+                    foreach(Json.Node item in json_comments) {
+                        if(item.get_object().get_string_member("kind") != "t1")
+                            continue;
+
+                        Json.Object data_obj = item.get_object()
+                            .get_object_member("data");
+                        var comment = new Comment() {
+                            id = data_obj.get_string_member("name"),
+                            text = data_obj.get_string_member("body"),
+                            comment_by = data_obj.get_string_member("author")
+                        };
+                        comments.add(comment);
+                    }
+                    this._current_viewed_post.comments = comments;
+
+                    this.emit_change();
+                    
+                }catch(Error e) {
+                    stderr.printf("Error: %s\n", e.message);
+                }
+            });
         }
     }
 

@@ -26,9 +26,9 @@ executable(
     'src/DataStores/PostStore.vala',
     'src/DataStores/UserStore.vala',
 
-    'src/Comments/CommentItem.vala',
-    'src/Comments/CommentList.vala',
-
+    'src/Posts/PostDetails/Comments/Comment.vala',
+    'src/Posts/PostDetails/Comments/CommentItemView.vala',
+    'src/Posts/PostDetails/Comments/LoadPostCommentsAction.vala',
 
     'src/Posts/Post.vala',
     'src/Posts/PostDetails/LoadPostDetailsImageAction.vala',

@@ -1,4 +1,4 @@
-Build started at 2020-04-12T15:33:41.888297
+Build started at 2020-04-17T00:32:16.391866
 Main binary: /usr/bin/python3
 Python system: Linux
 The Meson build system
@@ -23,8 +23,8 @@ Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
 Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
 -lglib-2.0
 Running compile:
-Working directory:  /tmp/tmp9atee_dd
-Command line:  cc /tmp/tmp9atee_dd/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmp9atee_dd/output.exe -O0 
+Working directory:  /tmp/tmp6g1u34yo
+Command line:  cc /tmp/tmp6g1u34yo/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmp6g1u34yo/output.exe -O0 
 
 Code:
  #include<stdio.h>
@@ -45,8 +45,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /tmp/tmpyx38z5xf
-Command line:  cc /tmp/tmpyx38z5xf/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpyx38z5xf/output.obj -O0 --print-search-dirs 
+Working directory:  /tmp/tmpv3kfcz1r
+Command line:  cc /tmp/tmpv3kfcz1r/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmpv3kfcz1r/output.obj -O0 --print-search-dirs 
 
 Code:
  

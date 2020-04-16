@@ -81,20 +81,32 @@
         font-weight: bold;
     }
 
-.post-details, 
-.post-details .media {
-}
 
 .post-details {
-    padding: 24px;
+    padding: 36px;
 }
 
 .post-details-title {
-    font-weight: bold;
+    text-shadow: 1px 1px 10px black; 
 }
 
 .post-details .post-image {
     box-shadow: 0px 2px 15px 0px #000000;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 36px;
+    margin-bottom: 36px;
+}
+
+.post-details .post-text {
+    margin-top: 36px;
+    margin-bottom: 36px;
+    font-size: 20px;
+}
+
+.comment-wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-text {
+    font-size: 20px;
 }

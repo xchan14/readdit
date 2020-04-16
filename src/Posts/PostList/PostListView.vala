@@ -78,10 +78,9 @@ namespace ReadIt.Posts.PostList {
             if(row != null) {
                 Post post = ((Post) this._posts_list_model.get_item(row.get_index()));
                 id = post.id;
+                stdout.printf("id: %s\n", id);
                 _dispatcher.dispatch(new ViewPostAction(id));
-            } else {
-                stdout.printf("what the fuck!\n");
-            }
+            } 
         }
 
         private void update_list() {
