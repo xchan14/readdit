@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 Christian Camilon <christiancamilon@gmail.com> -->
 <gresources>
   <gresource prefix="/com/github/xchan14/readit">
     <file alias="application.css" compressed="true">application.css</file>

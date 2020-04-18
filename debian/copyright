@@ -3,7 +3,7 @@ Upstream-Name: master
 Source: https://github.com/xchan14/readit
 
 Files: src/* data/* debian/*
-Copyright: 2019 Christian Camilon <christiancamilon@gmail.com>.
+Copyright: 2020 Christian Camilon <christiancamilon@gmail.com>.
 License: GPL-3.0+
 
 License: GPL-3.0+
