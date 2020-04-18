@@ -23,10 +23,13 @@ executable(
     'src/Dispatcher.vala',
     'src/MainWindow.vala',
 
+    'src/DataStores/Parsers/CommentParser.vala',
     'src/DataStores/PostStore.vala',
     'src/DataStores/UserStore.vala',
 
     'src/Posts/PostDetails/Comments/Comment.vala',
+    'src/Posts/PostDetails/Comments/CommentCollection.vala',
+    'src/Posts/PostDetails/Comments/CommentCollectionView.vala',
     'src/Posts/PostDetails/Comments/CommentItemView.vala',
     'src/Posts/PostDetails/Comments/LoadPostCommentsAction.vala',
 

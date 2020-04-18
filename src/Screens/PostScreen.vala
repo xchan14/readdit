@@ -19,7 +19,8 @@ public class ReadIt.Screens.PostScreen : Gtk.Paned {
         this._empty_details_view = new EmptyPostDetailsView();
 
         this._details_view_wrapper = new Gtk.ScrolledWindow(null, null);
-        this._details_view_wrapper.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        //this._details_view_wrapper.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        this._details_view_wrapper.expand = false;
         this._details_view_wrapper.add(this._empty_details_view);
 
         pack1(this._post_list_view, true, false);

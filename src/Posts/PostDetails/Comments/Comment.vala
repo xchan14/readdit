@@ -4,7 +4,7 @@ namespace ReadIt.Posts.PostDetails.Comments {
 
     public class Comment : Object {
         public Comment() {
-            Object(comments: new ArrayList<Comment>());
+            Object(comment_collection: new CommentCollection());
         }
 
         public string id { get; set; }
@@ -13,7 +13,7 @@ namespace ReadIt.Posts.PostDetails.Comments {
         public string comment_by_id { get; set; } 
         public int score { get; set; }
 
-        public Collection<Comment> comments { get; construct; }
+        public CommentCollection comment_collection { get; set; }
     }
 
 }

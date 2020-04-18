@@ -31,16 +31,16 @@ public class ReadIt.MainWindow : Gtk.ApplicationWindow {
         add(new PostScreen());        
 
         // Bind event handlers.
-        show.connect(on_window_showed);
+        map.connect(on_map);
         show_all();
     }
 
     private void set_window_size()
     {
-        set_default_size(1360, 700);
+        set_default_size(1300, 700);
     }
 
-    private void on_window_showed() {
+    private void on_map() {
         var loop = new MainLoop();
         Timeout.add(1000, () => {
             stdout.printf("Dispatching action LoadPostsAction.\n");

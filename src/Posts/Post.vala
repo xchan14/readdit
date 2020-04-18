@@ -22,7 +22,7 @@ namespace ReadIt.Posts {
 
         public DateTime date_loaded { get; set; }
 
-        public Collection<Comment> comments { get; set; }
+        public CommentCollection comment_collection { get; set; }
     }
     
 }

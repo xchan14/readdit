@@ -14,7 +14,7 @@ namespace ReadIt.Posts.PostDetails {
         Gtk.Box _media_wrapper;
         Gtk.Label _text_widget;
         Gtk.Image _image;
-        Gtk.Box _comments_view;
+        CommentCollectionView _comments_view;
 
         bool _image_loaded = false;
 
@@ -22,6 +22,7 @@ namespace ReadIt.Posts.PostDetails {
             orientation = Gtk.Orientation.VERTICAL;
             baseline_position = Gtk.BaselinePosition.TOP;
             spacing = 0;
+            expand = false;
             get_style_context().add_class("post-details");
 
             this._title_widget = new Gtk.Label("Loading...") {
@@ -44,7 +45,7 @@ namespace ReadIt.Posts.PostDetails {
                 selectable = true
             };
             this._text_widget.get_style_context().add_class("post-text");
-            this._comments_view = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            this._comments_view = new CommentCollectionView();
 
             map.connect(on_map);
             this._comments_view.map.connect(on_comments_view_map);
@@ -84,11 +85,8 @@ namespace ReadIt.Posts.PostDetails {
                 } 
             }
 
-            if(this.model.comments != null) {
-                foreach(Comment comment in this._post_store.current_viewed_post.comments) {
-                    this._comments_view.pack_start(new CommentItemView(comment, 0));
-                }
-                this._comments_view.show_all();
+            if(this.model.comment_collection != null) {
+                this._comments_view.update_model(this.model.comment_collection);
             }
         }
 
@@ -102,7 +100,7 @@ namespace ReadIt.Posts.PostDetails {
                 pack_start(this._media_wrapper, false, false, 0);
                 this._media_wrapper.show_all();
             }
-            if(this.model.body_text != null) {
+            if(this.model.body_text != null && this.model.body_text.length > 0) {
                 stdout.printf("text: %s\n", this.model.body_text);
                 pack_start(this._text_widget, false, false, 0);
             }
