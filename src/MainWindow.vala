@@ -1,7 +1,7 @@
 using Gee;
 using Gdk;
 using Gtk;
-using ReadIt.Backend.DataStores;
+using ReadIt.DataStores;
 using ReadIt.Posts;
 using ReadIt.Users;
 using ReadIt.Posts.PostList;

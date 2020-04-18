@@ -2,7 +2,7 @@
 using Gee;
 using ReadIt.Posts.PostDetails.Comments;
 using ReadIt.Posts.PostDetails;
-using ReadIt.Backend.DataStores;
+using ReadIt.DataStores;
 
 namespace ReadIt.Posts.PostDetails { 
     
@@ -48,7 +48,6 @@ namespace ReadIt.Posts.PostDetails {
             this._comments_view = new CommentCollectionView();
 
             map.connect(on_map);
-            this._comments_view.map.connect(on_comments_view_map);
             this._post_store.emit_change.connect(on_post_store_emit_change);
         }
 
@@ -59,9 +58,6 @@ namespace ReadIt.Posts.PostDetails {
                 this._dispatcher.dispatch(new LoadPostDetailsImageAction(this.model.id, this.model.image_url));
             } 
 
-        }
-
-        public void on_comments_view_map() {
         }
 
         // Handles changes in Post Store.
@@ -108,6 +104,7 @@ namespace ReadIt.Posts.PostDetails {
             this._comments_view.unparent();
             this._comments_view.@foreach(w => this._comments_view.remove(w));
             pack_start(this._comments_view, false, false, 0);
+
 
             show_all();
         }

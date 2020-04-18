@@ -1,5 +1,5 @@
 using Gee;
-using ReadIt.Backend.DataStores;
+using ReadIt.DataStores;
 using ReadIt.Posts.PostList.PostListItem;
 using ReadIt.Users;
 

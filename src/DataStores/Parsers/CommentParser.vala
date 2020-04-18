@@ -1,7 +1,7 @@
 using Gee;
 using ReadIt.Posts.PostDetails.Comments;
 
-namespace ReadIt.Backend.DataStores.Parsers {
+namespace ReadIt.DataStores.Parsers {
 
     /**
      *  Parses a Comment object from comment json data returned by API.

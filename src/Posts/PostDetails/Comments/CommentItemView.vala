@@ -40,7 +40,9 @@ namespace ReadIt.Posts.PostDetails.Comments  {
             this._replies.get_style_context().add_class("comment-children");
             this._replies.update_model(this.model.comment_collection);
 
-            this._header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            this._header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0) {
+                baseline_position = Gtk.BaselinePosition.BOTTOM   
+            };
             this._header.pack_start(this._comment_by, false, false, 0);
             this._header.pack_start(this._score, false, false, 0);
 

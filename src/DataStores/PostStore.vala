@@ -3,9 +3,9 @@ using ReadIt.Posts;
 using ReadIt.Posts.PostList;
 using ReadIt.Posts.PostDetails;
 using ReadIt.Posts.PostDetails.Comments;
-using ReadIt.Backend.DataStores.Parsers;
+using ReadIt.DataStores.Parsers;
 
-namespace ReadIt.Backend.DataStores {
+namespace ReadIt.DataStores {
 
     public class PostStore : Object {
         private static PostStore _instance;

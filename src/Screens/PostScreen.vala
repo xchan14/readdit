@@ -1,4 +1,4 @@
-using ReadIt.Backend.DataStores;
+using ReadIt.DataStores;
 using ReadIt.Posts;
 using ReadIt.Posts.PostList;
 using ReadIt.Posts.PostDetails;

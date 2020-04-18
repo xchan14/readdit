@@ -1,6 +1,9 @@
+using ReadIt.DataStores;
 
 namespace ReadIt.Posts.PostDetails.Comments {
     public class CommentCollectionView : Gtk.Box {
+        ReadIt.Dispatcher _dispatcher = ReadIt.Dispatcher.INSTANCE; 
+        PostStore _post_store = PostStore.INSTANCE;
 
         public CommentCollectionView() {
             orientation = Gtk.Orientation.VERTICAL;
@@ -16,15 +19,20 @@ namespace ReadIt.Posts.PostDetails.Comments {
 
             if(comment_collection.more_comment_ids != null) {
                 int count = comment_collection.more_comment_ids.size;
+                string label = "<a href=\"\">Load more comments (".concat(count.to_string(), ")...</a>");
                 var more_comments_label = new Gtk.Label(null) {
-                    label = "Load more comments ".concat(count.to_string(), " more..."),
-                    xalign = 0.0f
+                    label = label,
+                    xalign = 0.0f,
+                    use_markup = true
                 };
-                more_comments_label.get_style_context().add_class("comments-more");
+                more_comments_label.get_style_context().add_class("comment-more");
                 pack_start(more_comments_label, false, false, 0);
             }
 
             show_all();
+        }
+
+        private void on_load_more_click() {
         }
 
     }

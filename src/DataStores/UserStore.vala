@@ -1,7 +1,7 @@
 using ReadIt.Users;
 using Gee;
 
-namespace ReadIt.Backend.DataStores {
+namespace ReadIt.DataStores {
 
     public class UserStore : GLib.Object {
 

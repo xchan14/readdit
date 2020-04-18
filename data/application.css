@@ -120,11 +120,15 @@
 }
 
 .comment-text {
-    font-size: 18px;
 }
 
 .comment-children {
     margin-top: 6px;
     border-left: 2px solid #666666;
     padding-left: 12px;
+}
+
+.comment-more {
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
