@@ -1,4 +1,4 @@
-Source: com.github.xchan14.readit
+Source: com.github.xchan14.readdit
 Section: x11
 Priority: optional
 Maintainer: Cody Garver <cody@elementary.io>
@@ -8,7 +8,7 @@ Build-Depends: cmake (>= 2.8),
                valac (>= 0.40.0)
 Standards-Version: 3.9.3
 
-Package: com.github.xchan14.readit
+Package: com.github.xchan14.readdit
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Reddit client

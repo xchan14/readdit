@@ -17,14 +17,14 @@
 * Boston, MA 02110-1301 USA
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
-*//
+*/
 
-using ReadIt.DataStores;
-using ReadIt.Posts;
-using ReadIt.Posts.PostList;
-using ReadIt.Posts.PostDetails;
+using ReaddIt.DataStores;
+using ReaddIt.Posts;
+using ReaddIt.Posts.PostList;
+using ReaddIt.Posts.PostDetails;
 
-public class ReadIt.Screens.PostScreen : Gtk.Paned {
+public class ReaddIt.Screens.PostScreen : Gtk.Paned {
     PostStore _post_store = PostStore.INSTANCE;
 
     PostListView _post_list_view;

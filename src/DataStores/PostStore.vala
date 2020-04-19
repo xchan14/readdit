@@ -20,13 +20,13 @@
 */
 
 using Gee;
-using ReadIt.Posts;
-using ReadIt.Posts.PostList;
-using ReadIt.Posts.PostDetails;
-using ReadIt.Posts.PostDetails.Comments;
-using ReadIt.DataStores.Parsers;
+using ReaddIt.Posts;
+using ReaddIt.Posts.PostList;
+using ReaddIt.Posts.PostDetails;
+using ReaddIt.Posts.PostDetails.Comments;
+using ReaddIt.DataStores.Parsers;
 
-namespace ReadIt.DataStores {
+namespace ReaddIt.DataStores {
 
     public class PostStore : Object {
         private static PostStore _instance;

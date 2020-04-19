@@ -20,11 +20,11 @@
 */
 
 using Gee;
-using ReadIt.Posts.PostDetails.Comments;
-using ReadIt.Posts.PostDetails;
-using ReadIt.DataStores;
+using ReaddIt.Posts.PostDetails.Comments;
+using ReaddIt.Posts.PostDetails;
+using ReaddIt.DataStores;
 
-namespace ReadIt.Posts.PostDetails { 
+namespace ReaddIt.Posts.PostDetails { 
     
     public class PostDetailsView : Gtk.Box {
         PostStore _post_store = PostStore.INSTANCE;

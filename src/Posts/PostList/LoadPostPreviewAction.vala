@@ -19,7 +19,7 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReadIt.Posts.PostList.LoadPostPreviewAction : Object, Action {
+public class ReaddIt.Posts.PostList.LoadPostPreviewAction : Object, Action {
     public LoadPostPreviewAction(string post_id, string url) {
         Object(
             post_id: post_id,

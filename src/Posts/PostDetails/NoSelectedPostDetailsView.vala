@@ -19,7 +19,7 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-namespace ReadIt.Posts.PostDetails {
+namespace ReaddIt.Posts.PostDetails {
 
     public class EmptyPostDetailsView : Gtk.Box {
 

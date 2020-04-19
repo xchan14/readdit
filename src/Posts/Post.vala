@@ -20,9 +20,9 @@
 */
 
 using Gee; 
-using ReadIt.Posts.PostDetails.Comments;
+using ReaddIt.Posts.PostDetails.Comments;
 
-namespace ReadIt.Posts { 
+namespace ReaddIt.Posts { 
 
     public class Post : Object {  
 

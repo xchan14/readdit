@@ -22,26 +22,26 @@
 using Gee;
 using Gdk;
 using Gtk;
-using ReadIt.DataStores;
-using ReadIt.Posts;
-using ReadIt.Users;
-using ReadIt.Posts.PostList;
-using ReadIt.Posts.PostDetails;
-using ReadIt.Screens;
+using ReaddIt.DataStores;
+using ReaddIt.Posts;
+using ReaddIt.Users;
+using ReaddIt.Posts.PostList;
+using ReaddIt.Posts.PostDetails;
+using ReaddIt.Screens;
     
-public class ReadIt.MainWindow : Gtk.ApplicationWindow {
+public class ReaddIt.MainWindow : Gtk.ApplicationWindow {
 
     // Global action dispatcher.
     Dispatcher _dispatcher = Dispatcher.INSTANCE;
 
-    public MainWindow(ReadIt.Application readit){
+    public MainWindow(ReaddIt.Application readdit){
         Object(
-            application: readit
+            application: readdit
         );
     }
 
     construct {
-        title = "ReadIt";
+        title = "ReaddIt";
         window_position = WindowPosition.CENTER;
         set_window_size();
         apply_css();
@@ -76,7 +76,7 @@ public class ReadIt.MainWindow : Gtk.ApplicationWindow {
     private void apply_css() 
     {
         CssProvider css_provider = new CssProvider();
-        css_provider.load_from_resource("com/github/xchan14/readit/application.css");
+        css_provider.load_from_resource("com/github/xchan14/readdit/application.css");
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(), 
             css_provider, 

@@ -19,7 +19,7 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReadIt.Posts.PostList.LoadMorePostsAction : Object, Action {
+public class ReaddIt.Posts.PostList.LoadMorePostsAction : Object, Action {
     public LoadMorePostsAction(string? subreddit) {
         Object(subreddit: subreddit);
     }

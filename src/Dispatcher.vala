@@ -21,7 +21,7 @@
 
 using Gee;
 
-public class ReadIt.Dispatcher : Object  {
+public class ReaddIt.Dispatcher : Object  {
     private static Dispatcher _instance;
     public delegate void ActionCallback(Action action);
 

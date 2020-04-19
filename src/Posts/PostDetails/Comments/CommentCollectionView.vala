@@ -19,11 +19,11 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using ReadIt.DataStores;
+using ReaddIt.DataStores;
 
-namespace ReadIt.Posts.PostDetails.Comments {
+namespace ReaddIt.Posts.PostDetails.Comments {
     public class CommentCollectionView : Gtk.Box {
-        ReadIt.Dispatcher _dispatcher = ReadIt.Dispatcher.INSTANCE; 
+        ReaddIt.Dispatcher _dispatcher = ReaddIt.Dispatcher.INSTANCE; 
         PostStore _post_store = PostStore.INSTANCE;
 
         public CommentCollectionView() {

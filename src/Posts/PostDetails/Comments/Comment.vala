@@ -21,7 +21,7 @@
 
 using Gee;
 
-namespace ReadIt.Posts.PostDetails.Comments {
+namespace ReaddIt.Posts.PostDetails.Comments {
 
     public class Comment : Object {
         public Comment() {

@@ -1,5 +1,5 @@
     
-public class ReadIt.Users.User {
+public class ReaddIt.Users.User {
 
     public string id { get; set; }
     public string name { get; set; }

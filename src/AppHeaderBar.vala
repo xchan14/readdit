@@ -17,12 +17,12 @@
 * Boston, MA 02110-1301 USA
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
-*//
+*/
 
 using Gtk;
 
 
-public class ReadIt.AppHeaderBar : HeaderBar {
+public class ReaddIt.AppHeaderBar : HeaderBar {
 
     construct {
         show_close_button = true;

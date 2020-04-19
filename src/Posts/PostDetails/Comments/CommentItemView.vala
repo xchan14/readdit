@@ -19,7 +19,7 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-namespace ReadIt.Posts.PostDetails.Comments  {
+namespace ReaddIt.Posts.PostDetails.Comments  {
 
     public class CommentItemView : Gtk.Box  {
 
@@ -54,7 +54,8 @@ namespace ReadIt.Posts.PostDetails.Comments  {
                 wrap = true,
                 use_markup = true
             };
-            this._text.get_style_context().add_class("comment-text");
+            this._text.get_style_context().add_class("h3");
+            //this._text.get_style_context().add_class("comment-text");
 
             this._replies = new CommentCollectionView();
             this._replies.get_style_context().add_class("comment-children");

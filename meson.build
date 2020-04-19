@@ -1,4 +1,4 @@
-project('com.github.xchan14.readit', 'vala', 'c')
+project('com.github.xchan14.readdit', 'vala', 'c')
 
 i18n = import('i18n')
 gnome = import('gnome')

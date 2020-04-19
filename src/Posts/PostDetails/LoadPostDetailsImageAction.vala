@@ -19,7 +19,7 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-namespace ReadIt.Posts.PostDetails {
+namespace ReaddIt.Posts.PostDetails {
     public class LoadPostDetailsImageAction : Object, Action {
         public LoadPostDetailsImageAction(string post_id, string image_url) {
             Object(

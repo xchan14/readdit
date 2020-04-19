@@ -20,9 +20,9 @@
 */
 
 using Gee;
-using ReadIt.Posts.PostDetails.Comments;
+using ReaddIt.Posts.PostDetails.Comments;
 
-namespace ReadIt.DataStores.Parsers {
+namespace ReaddIt.DataStores.Parsers {
 
     /**
      *  Parses a Comment object from comment json data returned by API.
@@ -103,7 +103,7 @@ namespace ReadIt.DataStores.Parsers {
         private GLib.List<weak Json.Node> get_replies_nodes(Json.Object parent_obj) {
             var replies = parent_obj.get_object_member("replies");
             if(replies == null)
-                return null;
+                return new GLib.List<weak Json.Node>();
 
             return replies
                 .get_object_member("data") 

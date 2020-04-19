@@ -1,5 +1,5 @@
 
-public class ReadIt.Utils.ImageUtils {
+public class ReaddIt.Utils.ImageUtils {
 
 
 }

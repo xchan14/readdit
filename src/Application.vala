@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2011-2018 Your Organization (https://yourwebsite.com)
+* Copyright (c) 2020 Christian Camilon 
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,11 +19,11 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReadIt.Application : Gtk.Application {
+public class ReaddIt.Application : Gtk.Application {
 
     public Application(){
         Object(
-            application_id: "com.github.xchan14.readit",
+            application_id: "com.github.xchan14.readdit",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }

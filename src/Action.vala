@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
-*//
+*/
 
 public interface Action : Object {
 

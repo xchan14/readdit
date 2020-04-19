@@ -1,6 +1,6 @@
 Format: https://dep.debian.net/deps/dep5
 Upstream-Name: master
-Source: https://github.com/xchan14/readit
+Source: https://github.com/xchan14/readdit
 
 Files: src/* data/* debian/*
 Copyright: 2020 Christian Camilon <christiancamilon@gmail.com>.

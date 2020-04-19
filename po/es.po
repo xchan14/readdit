@@ -1,14 +1,14 @@
-# Spanish translations for com.github.xchan14.readit package.
-# Copyright (C) 2020 THE com.github.xchan14.readit'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.xchan14.readit package.
+# Spanish translations for com.github.xchan14.readdit package.
+# Copyright (C) 2020 THE com.github.xchan14.readdit'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.xchan14.readdit package.
 # Automatically generated, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.xchan14.readit\n"
+"Project-Id-Version: com.github.xchan14.readdit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-04 20:21+0800\n"
-"PO-Revision-Date: 2020-02-04 20:21+0800\n"
+"POT-Creation-Date: 2020-04-19 10:31+0800\n"
+"PO-Revision-Date: 2020-04-19 10:31+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/com.github.xchan14.readit.desktop.in:3
+#: data/com.github.xchan14.readdit.desktop.in:3
 msgid "Readit"
 msgstr ""
 
-#: data/com.github.xchan14.readit.desktop.in:4
+#: data/com.github.xchan14.readdit.desktop.in:4
 msgid "Reddit Client"
 msgstr ""
 
-#: data/com.github.xchan14.readit.desktop.in:5
-#: data/com.github.xchan14.readit.appdata.xml.in:9
+#: data/com.github.xchan14.readdit.desktop.in:5
+#: data/com.github.xchan14.readdit.appdata.xml.in:9
 msgid "Browse reddit with Readit."
 msgstr ""
 
-#: data/com.github.xchan14.readit.desktop.in:8
+#: data/com.github.xchan14.readdit.desktop.in:8
 msgid "application-default-icon"
 msgstr ""
 
-#: data/com.github.xchan14.readit.desktop.in:11
+#: data/com.github.xchan14.readdit.desktop.in:11
 msgid "Reddit;Readit;"
 msgstr ""
 
-#: data/com.github.xchan14.readit.appdata.xml.in:6
+#: data/com.github.xchan14.readdit.appdata.xml.in:6
 msgid "ReadIt"
 msgstr ""
 
-#: data/com.github.xchan14.readit.appdata.xml.in:7
+#: data/com.github.xchan14.readdit.appdata.xml.in:7
 msgid "Reddit client"
 msgstr ""

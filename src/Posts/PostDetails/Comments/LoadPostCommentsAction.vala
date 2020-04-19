@@ -19,7 +19,7 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-namespace ReadIt.Posts.PostDetails.Comments  {
+namespace ReaddIt.Posts.PostDetails.Comments  {
 
     public class LoadPostCommentsAction : Object, Action {
         public LoadPostCommentsAction(string post_id, string? after = null) {

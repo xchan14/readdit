@@ -20,17 +20,17 @@
 */
 
 using Gee;
-using ReadIt.DataStores;
-using ReadIt.Posts.PostList.PostListItem;
-using ReadIt.Users;
+using ReaddIt.DataStores;
+using ReaddIt.Posts.PostList.PostListItem;
+using ReaddIt.Users;
 
-namespace ReadIt.Posts.PostList { 
+namespace ReaddIt.Posts.PostList { 
 
     public class PostListView : Gtk.ScrolledWindow {
         // Reference to post store.
         private PostStore _post_store = PostStore.INSTANCE;
         // Reference to global dispatcher.
-        private ReadIt.Dispatcher _dispatcher = ReadIt.Dispatcher.INSTANCE;
+        private ReaddIt.Dispatcher _dispatcher = ReaddIt.Dispatcher.INSTANCE;
         // Listbox widget for the list of posts.
         private Gtk.ListBox _listbox;
         // Data store behind the posts listbox.

@@ -19,10 +19,10 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using ReadIt.Utils;
-using ReadIt.DataStores;
+using ReaddIt.Utils;
+using ReaddIt.DataStores;
 
-namespace ReadIt.Posts.PostList.PostListItem { 
+namespace ReaddIt.Posts.PostList.PostListItem { 
 
     public class PostListItemView : Gtk.Grid {
         Dispatcher _dispatcher = Dispatcher.INSTANCE;

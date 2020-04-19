@@ -17,9 +17,9 @@
 * Boston, MA 02110-1301 USA
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
-*//
+*/
 
-public class ReadIt.Posts.PostList.ViewPostAction : Object, Action {
+public class ReaddIt.Posts.PostList.ViewPostAction : Object, Action {
     public ViewPostAction(string post_id) { 
         Object(post_id: post_id);
     }
