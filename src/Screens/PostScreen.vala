@@ -40,7 +40,7 @@ public class ReaddIt.Screens.PostScreen : Gtk.Paned {
         this._empty_details_view = new EmptyPostDetailsView();
 
         this._details_view_wrapper = new Gtk.ScrolledWindow(null, null);
-        //this._details_view_wrapper.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        this._details_view_wrapper.hscrollbar_policy = Gtk.PolicyType.AUTOMATIC;
         this._details_view_wrapper.expand = false;
         this._details_view_wrapper.add(this._empty_details_view);
 
@@ -52,6 +52,23 @@ public class ReaddIt.Screens.PostScreen : Gtk.Paned {
     }
 
     private void on_post_store_emit_change() {
+        var viewport = this._details_view_wrapper.get_child() as Gtk.Viewport;
+
+        if(this._post_store.current_viewed_post != null) {
+            var post_details = viewport.get_child() as PostDetailsView;
+            if(post_details == null) {
+                this._details_view_wrapper.remove(this._empty_details_view);
+                this._details_view_wrapper.add(this._post_details_view);
+            } 
+        } else {
+            var post_details = viewport.get_child() as PostDetailsView;
+            if(post_details != null) {
+                this._details_view_wrapper.remove(this._post_details_view);
+                this._details_view_wrapper.add(this._empty_details_view);
+            }
+        }
+
+        /* 
         this._details_view_wrapper.foreach(w => {
             if(this._post_store.current_viewed_post != null 
                 && (w != this._post_details_view)
@@ -65,6 +82,7 @@ public class ReaddIt.Screens.PostScreen : Gtk.Paned {
                 this._details_view_wrapper.add(this._empty_details_view);
             }       
         });
+        */
     }
 
 }

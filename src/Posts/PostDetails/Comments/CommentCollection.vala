@@ -23,8 +23,41 @@ using Gee;
 
 namespace ReaddIt.Posts.PostDetails.Comments {
     public class CommentCollection : ArrayList<Comment> {
+        
+        public CommentCollection(string? parent_id = null, int depth) {
+            Object(
+                parent_id: parent_id,
+                depth: depth
+            );
+            more_comment_ids = new ArrayList<string>();
+        }
 
-        public ArrayList<string> more_comment_ids { get; set; }
+        // Contains the id of parent comment. If null, it means that
+        // it is the top level comment collection which is the post comments.
+        public string? parent_id { get; construct; }
+        public int depth { get; construct; }
+        public ArrayList<string> more_comment_ids { get; private set; }
 
+        /*
+         * Find comment collection recursively by parent id.
+         */
+        public CommentCollection find_by_parent_id(string? parent_id = null, int depth = 0) {
+            if(parent_id == null)
+                return this;
+
+            foreach(Comment comment in this) {
+                if(comment.id == parent_id) {
+                    stdout.printf("Parent %s found...\n", parent_id);
+                    return comment.comment_collection;
+                } else if(comment.comment_collection != null && comment.comment_collection.depth <= depth) {
+                    var found_comment_collection = comment.comment_collection.find_by_parent_id(parent_id, depth);
+                    if(found_comment_collection != null) {
+                        return found_comment_collection;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -31,6 +31,7 @@ executable(
     'src/Posts/PostDetails/Comments/CommentCollection.vala',
     'src/Posts/PostDetails/Comments/CommentCollectionView.vala',
     'src/Posts/PostDetails/Comments/CommentItemView.vala',
+    'src/Posts/PostDetails/Comments/LoadMoreCommentsAction.vala',
     'src/Posts/PostDetails/Comments/LoadPostCommentsAction.vala',
 
     'src/Posts/Post.vala',

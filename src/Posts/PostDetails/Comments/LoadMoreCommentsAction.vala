@@ -19,29 +19,17 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using Gee;
+namespace ReaddIt.Posts.PostDetails.Comments  {
 
-namespace ReaddIt.Posts.PostDetails.Comments {
-
-    public class Comment : Object {
-        public Comment(string id, int depth) {
+    public class LoadMoreCommentsAction : Object, Action {
+        public LoadMoreCommentsAction(string? parent_id = null, int depth = 0) {
             Object(
-                id: id, 
+                parent_id: parent_id,
                 depth: depth
             );
         }
 
-        public string id { get; construct; }
+        public string parent_id { get; construct; }
         public int depth { get; construct; }
-
-        public string text { get; set; }
-        public string comment_by { get; set; }
-        public string comment_by_id { get; set; } 
-        public int score { get; set; }
-        public DateTime date_created { get; set; }
-        public string? parent_id { get; set; }
-
-        public CommentCollection comment_collection { get; set; }
     }
-
 }

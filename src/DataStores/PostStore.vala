@@ -30,7 +30,7 @@ namespace ReaddIt.DataStores {
 
     public class PostStore : Object {
         private static PostStore _instance;
-        private static string REDDIT_API = "http://reddit.com";
+        private static string REDDIT_BASE_API = "http://reddit.com";
 
         public signal void emit_change();
 
@@ -96,7 +96,12 @@ namespace ReaddIt.DataStores {
             } else if (dispatched_action is LoadPostCommentsAction) {
                 var action = (LoadPostCommentsAction) dispatched_action;
                 load_comments(action.post_id, action.after);
-            }
+            } else if (dispatched_action is LoadMoreCommentsAction) {
+                var action = (LoadMoreCommentsAction) dispatched_action;
+                load_more_comments(action.parent_id, action.depth);
+            } 
+
+
         }
 
         private void load_posts(string? subreddit) {
@@ -109,8 +114,8 @@ namespace ReaddIt.DataStores {
                 this._loaded_posts.clear();
             }
             var session = new Soup.Session();
-            var url = REDDIT_API + "/" + subreddit + ".json?"
-                    + "&limit=20"
+            var url = REDDIT_BASE_API + "/" + subreddit + ".json?"
+                    + "&limit=10"
                     + "&after=" + _last_post_id_loaded;
 
             stdout.printf("Getting post from api...\nurl: %s\n", url);
@@ -150,16 +155,17 @@ namespace ReaddIt.DataStores {
 
         private Post map_post_from_json(Json.Node post_node) {
             var post_data = post_node.get_object().get_object_member("data");
-            var post = new Post(); 
-            post.id = post_data.get_string_member("name");
-            post.title = post_data.get_string_member("title");
-            post.body_text = post_data.get_string_member("selftext");
-            post.score = (int) post_data.get_int_member("score");
-            post.subreddit = post_data.get_string_member("subreddit_name_prefixed");
-            post.posted_by = post_data.get_string_member("author");
-            post.posted_by_id = post_data.get_string_member("author_fullname");
-            post.date_created = new DateTime.from_unix_local((long)post_data.get_double_member("created_utc"));
-            post.is_video = post_data.get_boolean_member("is_video");
+            string id = post_data.get_string_member("name");
+            var post = new Post(id) {
+                title = post_data.get_string_member("title"),
+                body_text = post_data.get_string_member("selftext"),
+                score = (int) post_data.get_int_member("score"),
+                subreddit = post_data.get_string_member("subreddit_name_prefixed"),
+                posted_by = post_data.get_string_member("author"),
+                posted_by_id = post_data.get_string_member("author_fullname"),
+                date_created = new DateTime.from_unix_local((long)post_data.get_double_member("created")),
+                is_video = post_data.get_boolean_member("is_video")
+            }; 
 
             if(!post.is_video) {
                 // Cache preview image file.
@@ -264,7 +270,7 @@ namespace ReaddIt.DataStores {
         }
 
         private void load_comments(string post_id, string? after) {
-            string url = REDDIT_API + "/" + this._current_viewed_post.subreddit + "/comments/article.json?"
+            string url = REDDIT_BASE_API + "/" + this._current_viewed_post.subreddit + "/comments/article.json?"
                 + "article=" + this._current_viewed_post.id.replace("t3_", "")
                 + "&after=" + after;
             
@@ -277,12 +283,78 @@ namespace ReaddIt.DataStores {
                 try {
                     string data = (string)message.response_body.flatten().data;
                     CommentParser parser = new CommentParser(); 
-                    CommentCollection comment_collection = parser.parse_comments(data);
+                    CommentCollection comment_collection = parser.parse_comments(null, data);
                     this._current_viewed_post.comment_collection = comment_collection;
                     this.emit_change();
-                    
                 } catch(Error e) {
                     stderr.printf("Error: %s\n", e.message);
+                }
+            });
+        }
+
+        private void load_more_comments(string? parent_id = null, int depth) {
+            stdout.printf("Loading more comments of parent %s in post store...\n", parent_id);
+            // Get parent comment collection object.
+            CommentCollection parent_comment_collection = this.current_viewed_post.comment_collection;
+
+            stdout.printf("Finding parent comment (%s) to load in post store...\n", parent_id);
+            parent_comment_collection = parent_comment_collection.find_by_parent_id(parent_id, depth);
+            if(parent_comment_collection == null) {
+                stdout.printf("Parent %s not found...\n", parent_id);
+                return;
+            }
+            stdout.printf("Parent %s comment collection found...\n", parent_comment_collection.parent_id);
+            int item_count = 10;
+            if(parent_comment_collection.more_comment_ids.size < item_count) {
+                item_count = parent_comment_collection.more_comment_ids.size;
+            }
+            var children_ids = new Gee.ArrayList<string>();
+            for(int i = 1; i <= item_count; i++) {
+                string removed_id = parent_comment_collection.more_comment_ids.remove_at(0);
+                children_ids.add(removed_id); 
+            }
+
+            // Send http request.
+            string joined_children = string.joinv(",", children_ids.to_array());
+            string url = REDDIT_BASE_API + "/api/morechildren.json?"
+                + "&api_type=json"
+                + "&link_id=" + this.current_viewed_post.id
+                + "&limit_children=true"
+                + "&children=" + joined_children;
+            stdout.printf("Loading more comments in %s...\n", url);
+            var message = new Soup.Message("GET", url);
+            var session = new Soup.Session();
+            session.queue_message(message, (sess, mess) => {
+                try {
+                    string data = (string)message.response_body.flatten().data;
+                    CommentParser parser = new CommentParser();
+                    stdout.printf("Parsing api result...\n");
+                    Collection<Comment> more_comments = parser.parse_more_comments(data);
+                    stdout.printf("More comments parsing finished...\n");
+
+                    foreach(Comment comment in more_comments) {
+                        bool isPostParent = parent_comment_collection.parent_id == null 
+                            && comment.parent_id.contains("t3_");
+                        if(comment.parent_id == parent_comment_collection.parent_id
+                            || isPostParent) {
+                            parent_comment_collection.add(comment);
+                            stdout.printf("Added comment %s to parent %s...\n", comment.id, parent_comment_collection.parent_id);
+                        } else {
+                            stdout.printf("Adding comment %s to a parent...\n", comment.id);
+                            CommentCollection parent_comment = parent_comment_collection
+                                .find_by_parent_id(comment.parent_id, parent_comment_collection.depth);
+                            if(parent_comment != null) {
+                                parent_comment.add(comment);
+                                stdout.printf("Added comment %s to parent %s...\n", comment.id, parent_comment.parent_id);
+                            } else {
+                                stdout.printf("No parent(%s) found to add new comment(%s)...\n", comment.parent_id, comment.id);
+                            }
+                        }
+                    }
+
+                    this.emit_change();
+                } catch(Error e) {
+                    stderr.printf(e.message);
                 }
             });
         }

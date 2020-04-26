@@ -26,7 +26,15 @@ namespace ReaddIt.Posts {
 
     public class Post : Object {  
 
-        public string id { get; set; }
+        public Post(string id) {
+            Object(
+                id: id
+            );
+        }
+
+        public string id { get; construct; }
+        public CommentCollection comment_collection { get; set; }
+
         public string title { get; set; }
         public int score { get; set; }
         public string posted_by { get; set; }
@@ -43,7 +51,6 @@ namespace ReaddIt.Posts {
 
         public DateTime date_loaded { get; set; }
 
-        public CommentCollection comment_collection { get; set; }
     }
     
 }

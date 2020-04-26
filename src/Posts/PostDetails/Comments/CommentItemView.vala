@@ -33,9 +33,10 @@ namespace ReaddIt.Posts.PostDetails.Comments  {
         public CommentItemView(Comment comment) {
             Object(model: comment);
             orientation = Gtk.Orientation.VERTICAL;
-            margin_start = 8;
+            //margin_start = 8;
             expand = false;
             get_style_context().add_class("comment-wrapper");
+            get_style_context().add_class("card");
 
             this._comment_by = new Gtk.Label(null) {
                 label = comment.comment_by,
@@ -54,12 +55,8 @@ namespace ReaddIt.Posts.PostDetails.Comments  {
                 wrap = true,
                 use_markup = true
             };
-            this._text.get_style_context().add_class("h3");
+            //this._text.get_style_context().add_class("h3");
             //this._text.get_style_context().add_class("comment-text");
-
-            this._replies = new CommentCollectionView();
-            this._replies.get_style_context().add_class("comment-children");
-            this._replies.update_model(this.model.comment_collection);
 
             this._header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0) {
                 baseline_position = Gtk.BaselinePosition.BOTTOM   
@@ -69,13 +66,17 @@ namespace ReaddIt.Posts.PostDetails.Comments  {
 
             pack_start(this._header, false, false, 0);
             pack_start(this._text, false, false, 0);
-            pack_start(this._replies);
+
+            if(this.model.comment_collection != null) {
+                this._replies = new CommentCollectionView(this.model.comment_collection);
+                this._replies.get_style_context().add_class("comment-children");
+                pack_start(this._replies);
+            }
 
             show_all();
         }
 
         public Comment model { get; construct; }
-        public int level { get; construct; }
     }
 
 }

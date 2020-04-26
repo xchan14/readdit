@@ -52,7 +52,7 @@ namespace ReaddIt.Posts.PostList.PostListItem {
 
             this._title =  new Gtk.Label(null);
             this._title.label = post.title;
-            this._title.get_style_context().add_class("h2");
+            this._title.get_style_context().add_class("post-title");
             this._title.xalign = 0.0f;
             this._title.wrap = true;
             this._title.lines = 3;

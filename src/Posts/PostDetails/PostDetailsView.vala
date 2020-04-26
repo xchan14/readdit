@@ -65,7 +65,7 @@ namespace ReaddIt.Posts.PostDetails {
                 selectable = true
             };
             this._text_widget.get_style_context().add_class("post-text");
-            this._comments_view = new CommentCollectionView();
+            this._text_widget.get_style_context().add_class("card");
 
             map.connect(on_map);
             this._post_store.emit_change.connect(on_post_store_emit_change);
@@ -86,6 +86,7 @@ namespace ReaddIt.Posts.PostDetails {
                 return;
 
             if(this.model != this._post_store.current_viewed_post) {
+                this._media_wrapper.foreach(w => w.destroy());
                 this.model = this._post_store.current_viewed_post;
                 this._image_loaded = false;
                 update_viewed_post(); 
@@ -93,7 +94,6 @@ namespace ReaddIt.Posts.PostDetails {
             } 
 
             if(!this._image_loaded) {
-                this._media_wrapper.foreach(w => w.destroy());
                 if(this.model.image_path != null) {
                     load_image();
                 } else if(this.model.image_url != null) {
@@ -101,8 +101,9 @@ namespace ReaddIt.Posts.PostDetails {
                 } 
             }
 
-            if(this.model.comment_collection != null) {
-                this._comments_view.update_model(this.model.comment_collection);
+            if(this._comments_view == null && this.model.comment_collection != null) {
+                this._comments_view = new CommentCollectionView(this.model.comment_collection);
+                pack_start(this._comments_view, false, false, 0);
             }
         }
 
@@ -121,10 +122,7 @@ namespace ReaddIt.Posts.PostDetails {
                 pack_start(this._text_widget, false, false, 0);
             }
 
-            this._comments_view.unparent();
-            this._comments_view.@foreach(w => this._comments_view.remove(w));
-            pack_start(this._comments_view, false, false, 0);
-
+            this._comments_view = null;
 
             show_all();
         }

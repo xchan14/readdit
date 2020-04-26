@@ -37,6 +37,7 @@ public class ReaddIt.Dispatcher : Object  {
     }
 
     public void dispatch(Action action) {
+        stdout.printf("Dispatching action of type %s...\n", action.get_type().name());
         action_dispatched(action);
     }
 }
