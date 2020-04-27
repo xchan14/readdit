@@ -34,9 +34,14 @@ namespace ReaddIt.Posts.PostDetails {
         Gtk.Box _media_wrapper;
         Gtk.Label _text_widget;
         Gtk.Image _image;
+        Gdk.Pixbuf _image_pixbuf;
         CommentCollectionView _comments_view;
 
         bool _image_loaded = false;
+        
+        construct {
+            set_size_request(400, -1);
+        }
 
         public PostDetailsView() {
             orientation = Gtk.Orientation.VERTICAL;
@@ -51,23 +56,28 @@ namespace ReaddIt.Posts.PostDetails {
                 selectable = true,
                 use_markup = true
             };
-            this._title_widget.get_style_context().add_class("h1");
-            this._title_widget.get_style_context().add_class("post-details-title");
+            var title_style = this._title_widget.get_style_context();
+            title_style.add_class("post-details-title");
+            title_style.add_class("h1");
+            title_style.add_class("card");
 
-            this._media_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0) {
-                halign = Gtk.Align.CENTER
+            this._media_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0) {
+                halign = Gtk.Align.CENTER,
+                expand = true
             };
             this._media_wrapper.get_style_context().add_class("media");
+            this._media_wrapper.get_style_context().add_class("card");
 
             this._text_widget = new Gtk.Label("Loading...") {
                 xalign = 0.0f,
                 wrap = true,
                 selectable = true
             };
-            this._text_widget.get_style_context().add_class("post-text");
-            this._text_widget.get_style_context().add_class("card");
+            var text_style = this._text_widget.get_style_context();
+            text_style.add_class("post-text");
+            text_style.add_class("card");
 
-            map.connect(on_map);
+            this.map.connect(on_map);
             this._post_store.emit_change.connect(on_post_store_emit_change);
         }
 
@@ -77,7 +87,6 @@ namespace ReaddIt.Posts.PostDetails {
             if(this.model.image_url != null) {
                 this._dispatcher.dispatch(new LoadPostDetailsImageAction(this.model.id, this.model.image_url));
             } 
-
         }
 
         // Handles changes in Post Store.
@@ -96,6 +105,7 @@ namespace ReaddIt.Posts.PostDetails {
             if(!this._image_loaded) {
                 if(this.model.image_path != null) {
                     load_image();
+                    this._image_loaded = true;
                 } else if(this.model.image_url != null) {
                     this._dispatcher.dispatch(new LoadPostDetailsImageAction(this.model.id, this.model.image_url));
                 } 
@@ -128,16 +138,49 @@ namespace ReaddIt.Posts.PostDetails {
         }
            
         private void load_image() {
-            Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file(this.model.image_path); 
-            this._image.unparent();
-            this._image = new Gtk.Image.from_pixbuf(pixbuf);
-            this._image.get_style_context().add_class("post-image");
-            this._media_wrapper.foreach((w) => w.destroy());
-            this._media_wrapper.pack_start(this._image, false, false, 0);
-            this._image.show();
-            this._image_loaded = true;
-        }
+            stdout.printf("Reloading image...\n");
+            Gtk.Allocation allocation;
+            this.get_allocation(out allocation);
+            stdout.printf("Post details allocated size %dx%d...\n", allocation.width, allocation.height);
 
+            if(!this._image_loaded) {
+                try {
+                    this._image_pixbuf = new Gdk.Pixbuf.from_file(this.model.image_path); 
+                } catch(Gdk.PixbufError e) {
+                    stderr.printf("File error: %s\n", e.message);
+                }
+            
+            } else {
+                this._media_wrapper.@foreach(w => this._media_wrapper.remove(w));
+            }
+
+            int height = this._image_pixbuf.get_height();
+            int width = this._image_pixbuf.get_width();
+            int new_height = 0;
+            int new_width = 0;
+            /* 
+            if(height < width) {
+                stdout.printf("Crosswise...\n");
+                // new_width will be 75% of media wrapper.
+                new_width = (int)((double) allocation.width * 0.75);  
+                double width_multiplier = (double) new_width / (double) width;
+                new_height = (int) ((double)height * width_multiplier);
+                stdout.printf("%dx%d -> %dx%d (%f%%)\n", width, height, new_width, new_height, width_multiplier);
+            } else {
+            */
+            stdout.printf("Lengthwise...\n");
+            new_height = 500;
+            double height_multiplier = (double) new_height / (double) height; 
+            new_width = (int) ((double)width * height_multiplier);
+            //}
+            stdout.printf("Scaling image to %dx%d...\n", new_width, new_height);
+            this._image_pixbuf = this._image_pixbuf.scale_simple(new_width, new_height, Gdk.InterpType.BILINEAR);
+            this._image = new Gtk.Image.from_pixbuf(this._image_pixbuf);
+            this._image.get_style_context().add_class("post-image");
+            this._media_wrapper.set_center_widget(this._image);
+            this._media_wrapper.show_all();
+            this._image.show();
+        }
 
     }
 

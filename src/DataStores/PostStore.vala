@@ -270,8 +270,9 @@ namespace ReaddIt.DataStores {
         }
 
         private void load_comments(string post_id, string? after) {
-            string url = REDDIT_BASE_API + "/" + this._current_viewed_post.subreddit + "/comments/article.json?"
-                + "article=" + this._current_viewed_post.id.replace("t3_", "")
+            Post post = this._loaded_posts[post_id];
+            string url = REDDIT_BASE_API + "/" + post.subreddit + "/comments/article.json?"
+                + "article=" + post.id.replace("t3_", "")
                 + "&after=" + after;
             
             stdout.printf("url: %s\n", url);
@@ -284,7 +285,7 @@ namespace ReaddIt.DataStores {
                     string data = (string)message.response_body.flatten().data;
                     CommentParser parser = new CommentParser(); 
                     CommentCollection comment_collection = parser.parse_comments(null, data);
-                    this._current_viewed_post.comment_collection = comment_collection;
+                    post.comment_collection = comment_collection;
                     this.emit_change();
                 } catch(Error e) {
                     stderr.printf("Error: %s\n", e.message);

@@ -43,7 +43,6 @@ namespace ReaddIt.Posts.PostList {
             this._posts_list_model = new PostListModel();
 
             get_style_context().add_class("post-list");
-            set_size_request(400, 1);
             set_propagate_natural_width(true);
             hscrollbar_policy = Gtk.PolicyType.NEVER;
 

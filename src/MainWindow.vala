@@ -58,7 +58,7 @@ public class ReaddIt.MainWindow : Gtk.ApplicationWindow {
 
     private void set_window_size()
     {
-        set_default_size(1300, 700);
+        //set_default_size(1300, 700);
     }
 
     private void on_map() {
