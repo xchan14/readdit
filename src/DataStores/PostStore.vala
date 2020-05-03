@@ -34,10 +34,10 @@ namespace ReaddIt.DataStores {
 
         public signal void emit_change();
 
-        private TreeMap<string, Post> _loaded_posts = new TreeMap<string, Post>();
+        private ArrayList<Post> _loaded_posts = new ArrayList<Post>();
         private Post _current_viewed_post; 
-        private string _last_post_id_loaded;
         private string _current_subreddit;
+        private string _current_post_sort;
         private bool _is_loading_post;
 
         private PostStore() { 
@@ -55,7 +55,7 @@ namespace ReaddIt.DataStores {
 
         public Collection<Post> loaded_posts { 
             owned get { 
-                return _loaded_posts.values;
+                return this._loaded_posts;
                 /*  var values = new ArrayList<Post>.wrap(_loaded_posts.values.to_array(), null);
                 values.sort((a, b) => {
                     if(a.date_loaded.to_unix() < b.date_loaded.to_unix())
@@ -83,7 +83,7 @@ namespace ReaddIt.DataStores {
         private void handle_dispatched_actions(Action dispatched_action) {
             if(dispatched_action is LoadMorePostsAction) {
                 var action = (LoadMorePostsAction) dispatched_action;
-                load_posts(action.subreddit);
+                load_posts(action.sort_by, action.subreddit);
             } else if (dispatched_action is ViewPostAction) {
                 var action = (ViewPostAction) dispatched_action;
                 view_post(action.post_id);
@@ -104,41 +104,40 @@ namespace ReaddIt.DataStores {
 
         }
 
-        private void load_posts(string? subreddit) {
+        private void load_posts(string sort_by, string? subreddit) {
             this._is_loading_post = true;
-            if(subreddit == null)
-                subreddit = this._current_subreddit;
+            //if(subreddit == null)
+            //    subreddit = this._current_subreddit;
 
-            if(this._current_subreddit != subreddit) {
+            if(this._current_subreddit != subreddit || this._current_post_sort != sort_by) {
                 // Clear cached post items if subreddit changes.
                 this._loaded_posts.clear();
+                this._current_subreddit = subreddit;
+                this._current_post_sort = sort_by;
+                stdout.printf("Post list cleared in store...\n");
             }
             var session = new Soup.Session();
-            var url = REDDIT_BASE_API + "/" + subreddit + ".json?"
+            string last_loaded_post_id = null;
+            if(!this._loaded_posts.is_empty) {
+                last_loaded_post_id = this._loaded_posts.last().id;
+            }
+            
+            var endpoint = subreddit == null ? sort_by : subreddit + "/" + sort_by;
+            stdout.printf("url endpoint: %s...\n", endpoint);
+            var url = REDDIT_BASE_API + "/" + endpoint + ".json?"
                     + "&limit=10"
-                    + "&after=" + _last_post_id_loaded;
+                    + "&after=" + last_loaded_post_id;
 
             stdout.printf("Getting post from api...\nurl: %s\n", url);
             var message = new Soup.Message("GET", url);
 
             session.queue_message(message, (sess, mess) => {
-                var parser = new Json.Parser();
 
                 try {
                     stdout.printf("Parsing data from response.\n");
                     string data = (string)message.response_body.flatten().data;
-                    parser.load_from_data(data, -1);
-                    Json.Object root_object = parser.get_root ().get_object ();
-                    Json.Array post_items = root_object
-                        .get_object_member("data")
-                        .get_array_member("children"); 
-
-                    GLib.List<weak Json.Node> items = post_items.get_elements();
-                    foreach(Json.Node post_node in items) {
-                        Post post = map_post_from_json(post_node);
-                        this._loaded_posts.set(post.id, post);
-                        this._last_post_id_loaded = post.id;
-                    }
+                    var post_parser = new PostParser();
+                    this._loaded_posts.add_all(post_parser.parse_from_data(data)); 
                 } catch(Error e) {
                     stderr.printf("Error: %s\n", e.message);
                 }
@@ -146,65 +145,21 @@ namespace ReaddIt.DataStores {
                 stdout.printf("Caching posts finished...\n");
 
                 this._is_loading_post = false;
-                this._current_subreddit = subreddit;
                 stdout.printf("Total posts: %d\n", this._loaded_posts.size);
                 this.emit_change();
             });
 
         }
 
-        private Post map_post_from_json(Json.Node post_node) {
-            var post_data = post_node.get_object().get_object_member("data");
-            string id = post_data.get_string_member("name");
-            var post = new Post(id) {
-                title = post_data.get_string_member("title"),
-                body_text = post_data.get_string_member("selftext"),
-                score = (int) post_data.get_int_member("score"),
-                subreddit = post_data.get_string_member("subreddit_name_prefixed"),
-                posted_by = post_data.get_string_member("author"),
-                posted_by_id = post_data.get_string_member("author_fullname"),
-                date_created = new DateTime.from_unix_local((long)post_data.get_double_member("created")),
-                is_video = post_data.get_boolean_member("is_video")
-            }; 
-
-            if(!post.is_video) {
-                // Cache preview image file.
-                Json.Object preview_object = post_data.get_object_member("preview");
-                if(preview_object != null) {
-                    // If preview is not null and is not a video, post's url is an image. 
-                    Json.Array image_array_object = preview_object.get_array_member("images"); 
-                    if(image_array_object != null) {
-                        Json.Object image_object = image_array_object
-                            .get_element(0)
-                            .get_object();
-
-                        post.image_url = image_object.get_object_member("source")
-                            .get_string_member("url")
-                            .replace("&amp;" ,"&");
-
-                        Json.Object resolutions_object = image_object
-                            .get_array_member("resolutions")
-                            .get_element(1).get_object();
-                        post.preview_url = resolutions_object
-                            .get_string_member("url")
-                            .replace("&amp;" ,"&");
-                    }
-                }
-            }
-
-
-            post.date_loaded = new DateTime.now_utc();
-            return post;
-        }
-
         private void view_post(string? post_id) {
-            this._current_viewed_post = post_id != null ? this._loaded_posts[post_id] : null;
+            this._current_viewed_post = post_id == null ? null
+                : this._loaded_posts.first_match(p => p.id == post_id);
             this.emit_change();
         }
 
         private void load_post_preview(string post_id, string url) {
             // Create cache file.
-            Post post = this._loaded_posts[post_id];
+            Post post = this._loaded_posts.first_match(p => p.id == post_id);
             
             try {
                 string preview_dir = Environment.get_user_cache_dir() 
@@ -239,7 +194,7 @@ namespace ReaddIt.DataStores {
 
         private void load_post_details_image_action(string post_id, string url) {
             // Create cache file.
-            Post post = _loaded_posts[post_id];
+            Post post = this._loaded_posts.first_match(p => p.id == post_id);
             try {
                 string image_dir = Environment.get_user_cache_dir() 
                     + "/" + Environment.get_application_name() 
@@ -270,9 +225,15 @@ namespace ReaddIt.DataStores {
         }
 
         private void load_comments(string post_id, string? after) {
-            Post post = this._loaded_posts[post_id];
+            Post post = this._loaded_posts.first_match(p => p.id == post_id);
+            if(post.comment_collection != null) {
+                stdout.printf("Comments are already downloaded...\n");
+                this.emit_change();
+                return;
+            }
             string url = REDDIT_BASE_API + "/" + post.subreddit + "/comments/article.json?"
-                + "article=" + post.id.replace("t3_", "")
+                + "&raw_json=1" 
+                + "&article=" + post.id.replace("t3_", "")
                 + "&after=" + after;
             
             stdout.printf("url: %s\n", url);
@@ -288,7 +249,7 @@ namespace ReaddIt.DataStores {
                     post.comment_collection = comment_collection;
                     this.emit_change();
                 } catch(Error e) {
-                    stderr.printf("Error: %s\n", e.message);
+                    error("Error: %s\n", e.message);
                 }
             });
         }

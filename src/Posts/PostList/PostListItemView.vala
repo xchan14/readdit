@@ -53,11 +53,11 @@ namespace ReaddIt.Posts.PostList.PostListItem {
             this._title =  new Gtk.Label(null);
             this._title.label = post.title;
             this._title.get_style_context().add_class("post-title");
+            this._title.get_style_context().add_class("h3");
             this._title.xalign = 0.0f;
             this._title.wrap = true;
-            this._title.lines = 3;
             this._title.single_line_mode = false;
-            this._title.ellipsize = Pango.EllipsizeMode.END;
+            //this._title.ellipsize = Pango.EllipsizeMode.END;
 
             this._preview = new Gtk.Image();
             this._preview_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);

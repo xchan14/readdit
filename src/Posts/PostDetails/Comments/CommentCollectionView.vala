@@ -39,7 +39,9 @@ namespace ReaddIt.Posts.PostDetails.Comments {
                 margin_start = 8;
             }*/
 
-            this._list_box = new Gtk.ListBox();
+            this._list_box = new Gtk.ListBox(){
+                selection_mode = Gtk.SelectionMode.NONE
+            };
             this._more_comments_label = new Gtk.Label(null) {
                 xalign = 0.0f,
                 use_markup = true
@@ -51,16 +53,16 @@ namespace ReaddIt.Posts.PostDetails.Comments {
             }
 
             pack_start(this._list_box);
-            if(this.model.more_comment_ids.size > 0) {
-                int more_count = comment_collection.more_comment_ids.size;
-                this._more_comments_label.label = update_more_comments_label_text(more_count);
-                this._more_comments_label.button_press_event.connect(on_load_more_click);
-                pack_start(this._more_comments_label, false, false, 0);
-            }
 
             show_all();
 
+            map.connect(on_map);
             this._post_store.emit_change.connect(on_post_store_emit_change);
+        }
+
+        ~CommentCollectionView() {
+            //this._post_store.emit_change.disconnect(on_post_store_emit_change);
+            //map.disconnect(on_map);
         }
 
         public bool is_empty() {
@@ -77,6 +79,15 @@ namespace ReaddIt.Posts.PostDetails.Comments {
                 stderr.printf("Error: %s\n", e.message);
             }
             return true;
+        }
+
+        private void on_map() {
+            if(this.model.more_comment_ids.size > 0) {
+                int more_count = this.model.more_comment_ids.size;
+                this._more_comments_label.label = update_more_comments_label_text(more_count);
+                this._more_comments_label.button_press_event.connect(on_load_more_click);
+                pack_start(this._more_comments_label, false, false, 0);
+            }
         }
 
         private void on_post_store_emit_change() {
@@ -99,6 +110,7 @@ namespace ReaddIt.Posts.PostDetails.Comments {
                     if(comment_item_view == null) {
                         comment_item_view = new CommentItemView(comment);
                         this._list_box.insert(comment_item_view, -1);
+                        stdout.printf("Added new comment %s...\n", comment.id);
                     }
                 } 
 

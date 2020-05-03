@@ -20,13 +20,12 @@
 */
 
 .app-main {
-    min-height: 900px;
     color: #1a1a1a;
     background-color:  white;
 }
 
 .app-header-bar {
-    background-color: #1a1a1a;
+    /*  background-color: #1a1a1a; */
 }
 
 .app-header-bar .custom-header {
@@ -88,7 +87,6 @@
 
     .post-list-item image.thumbnail {
         box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
-        background-color: #333;
     }
 
     .post-list-item .score {
@@ -105,28 +103,43 @@
  *  POST DETAILS SECTIOM
  */
 
+.post-details-wrapper {
+    padding: 12px 24px 12px 24px;
+}
+
 .post-details {
+}
+
+.post-details-content-header {
+    padding: 12px 24px 12px 24px;
+}
+    combobox.post_sort_by,
+    combobox.post_Sort_by window.popup {
+        font-weight: bold;
+    }
+
+.post-details-content-media {
+    background-color: @BLACK_700;
 }
 
 .post-details-title {
     text-shadow: 1px 1px 2px #333; 
-    padding: 6px;
+    background-color: @ORANGE_500;
+    padding: 18px;
+    color: white;
 }
 
-.post-details .post-image {
-    box-shadow: 0px 2px 5px 0px #000000;
+.post-details-content-body-text {
+    padding: 12px 24px 12px 24px;
 }
 
-.post-details .post-text {
-    padding: 12px;
-}
 
 /*
  * COMMENT SECTION
  */
 
 .comment-wrapper {
-    padding: 6px 0 0 6px;
+    padding: 12px 24px 12px 24px;
 }
 
 .comment-by {
@@ -147,4 +160,9 @@
 .comment-more {
     padding-top: 6px;
     padding-bottom: 6px;
+}
+
+
+.video-player {
+    box-shadow: 0px 2px 5px 0px #000000;
 }

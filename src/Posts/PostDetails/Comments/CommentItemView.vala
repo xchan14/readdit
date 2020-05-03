@@ -36,7 +36,7 @@ namespace ReaddIt.Posts.PostDetails.Comments  {
             //margin_start = 8;
             expand = false;
             get_style_context().add_class("comment-wrapper");
-            get_style_context().add_class("card");
+            //get_style_context().add_class("card");
 
             this._comment_by = new Gtk.Label(null) {
                 label = comment.comment_by,
@@ -53,9 +53,10 @@ namespace ReaddIt.Posts.PostDetails.Comments  {
                 xalign = 0.0f,
                 selectable = true,
                 wrap = true,
-                use_markup = true
+                wrap_mode = Pango.WrapMode.WORD_CHAR
             };
-            //this._text.get_style_context().add_class("h3");
+            this._text.set_line_wrap(true);
+            //this._text.get_style_context().add_class("h2");
             //this._text.get_style_context().add_class("comment-text");
 
             this._header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0) {

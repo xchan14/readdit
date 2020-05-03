@@ -24,6 +24,7 @@ executable(
     'src/MainWindow.vala',
 
     'src/DataStores/Parsers/CommentParser.vala',
+    'src/DataStores/Parsers/PostParser.vala',
     'src/DataStores/PostStore.vala',
     'src/DataStores/UserStore.vala',
 
@@ -37,6 +38,7 @@ executable(
     'src/Posts/Post.vala',
     'src/Posts/PostDetails/LoadPostDetailsImageAction.vala',
     'src/Posts/PostDetails/NoSelectedPostDetailsView.vala',
+    'src/Posts/PostDetails/PostDetailsContentView.vala',
     'src/Posts/PostDetails/PostDetailsView.vala',
    
     'src/Posts/PostList/LoadMorePostsAction.vala',
@@ -48,6 +50,7 @@ executable(
     'src/Screens/PostScreen.vala',
 
     'src/Users/User.vala',
+    'src/Widgets/VideoPlayer.vala',
 
     'src/Utils/ImageUtils.vala',
     
@@ -57,7 +60,11 @@ executable(
         dependency('gee-0.8'),
         dependency('libsoup-2.4'),
         dependency('json-glib-1.0'),
-        dependency('gio-2.0')
+        dependency('gio-2.0'),
+        dependency('clutter-1.0'),
+        dependency('clutter-gst-3.0'),
+        dependency('clutter-gtk-1.0'),
+        dependency('webkit2gtk-4.0'),
     ],
     install: true
 )

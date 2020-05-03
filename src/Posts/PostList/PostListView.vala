@@ -27,6 +27,9 @@ using ReaddIt.Users;
 namespace ReaddIt.Posts.PostList { 
 
     public class PostListView : Gtk.ScrolledWindow {
+
+        public signal void selected_post_changed(Post post);
+
         // Reference to post store.
         private PostStore _post_store = PostStore.INSTANCE;
         // Reference to global dispatcher.
@@ -38,8 +41,14 @@ namespace ReaddIt.Posts.PostList {
         // Current rendered posts
         private Collection<Post> _posts;
 
-        construct 
+        private string _current_sort;
+        private string _current_subreddit;
+
+        public PostListView(string sort_by, string? subreddit = null)
         {
+            this._current_sort = sort_by; 
+            this._current_subreddit = subreddit;
+
             this._posts_list_model = new PostListModel();
 
             get_style_context().add_class("post-list");
@@ -63,13 +72,23 @@ namespace ReaddIt.Posts.PostList {
             this._post_store.emit_change.connect(on_post_store_emit_change);
             this.edge_reached.connect(on_edge_reached);
             this._listbox.row_selected.connect(on_listbox_row_selected);
+
+            this.map.connect(() => {
+                this._dispatcher.dispatch(new LoadMorePostsAction(
+                        this._current_sort, 
+                        this._current_subreddit));
+            });
         }
 
         private void on_edge_reached(Gtk.PositionType pos) {
             if(pos == Gtk.PositionType.BOTTOM) {
                 // Infinite scroll implementation.
                 if(!this._post_store.is_loading_new_posts) {
-                    this._dispatcher.dispatch(new LoadMorePostsAction(null));
+                    this._dispatcher.dispatch(new LoadMorePostsAction(
+                        this._current_sort, 
+                        this._current_subreddit));
+                } else {
+                    stdout.printf("Still loading new posts...\n");
                 }
             }
         }
@@ -100,6 +119,7 @@ namespace ReaddIt.Posts.PostList {
                 id = post.id;
                 stdout.printf("id: %s\n", id);
                 _dispatcher.dispatch(new ViewPostAction(id));
+                selected_post_changed(post);
             } 
         }
 

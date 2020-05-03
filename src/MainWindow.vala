@@ -46,10 +46,10 @@ public class ReaddIt.MainWindow : Gtk.ApplicationWindow {
         set_window_size();
         apply_css();
 
-        var header_bar = new AppHeaderBar();
-        set_titlebar(header_bar);
+        //var header_bar = new AppHeaderBar();
+        //set_titlebar(header_bar);
 
-        add(new PostScreen());        
+        add(new PostScreen(this));        
 
         // Bind event handlers.
         map.connect(on_map);
@@ -62,15 +62,16 @@ public class ReaddIt.MainWindow : Gtk.ApplicationWindow {
     }
 
     private void on_map() {
+        /* 
         var loop = new MainLoop();
         Timeout.add(1000, () => {
             stdout.printf("Dispatching action LoadPostsAction.\n");
-            _dispatcher.dispatch(new LoadMorePostsAction("best"));
             loop.quit();
             return false;
         });
 
         loop.quit();
+        */
     }
 
     private void apply_css() 

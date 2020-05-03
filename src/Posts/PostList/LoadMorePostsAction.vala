@@ -20,8 +20,12 @@
 */
 
 public class ReaddIt.Posts.PostList.LoadMorePostsAction : Object, Action {
-    public LoadMorePostsAction(string? subreddit) {
-        Object(subreddit: subreddit);
+    public LoadMorePostsAction(string sort_by, string? subreddit) {
+        Object(
+            sort_by: sort_by,
+            subreddit: subreddit
+        );
     }
+    public string sort_by { get; construct; }
     public string? subreddit { get; construct; }
 }

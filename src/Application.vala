@@ -29,12 +29,22 @@ public class ReaddIt.Application : Gtk.Application {
     }
 
     public static int main (string[] args){
+        var err = GtkClutter.init (ref args);
+        if (err != Clutter.InitError.SUCCESS) {
+            error ("Could not initalize clutter: %s ", err.to_string ());
+        }
+        Gst.init (ref args);
+
         var app = new Application();
         return app.run(args);
     }
 
     protected override void activate(){
         var window = new MainWindow(this);
-        window.destroy.connect( s => Gtk.main_quit());
+        //Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true; 
+        window.destroy.connect( s =>  {
+            Gst.deinit();
+            Gtk.main_quit();
+        });
     }
 }

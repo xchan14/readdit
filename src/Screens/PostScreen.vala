@@ -26,51 +26,124 @@ using ReaddIt.Posts.PostDetails;
 
 public class ReaddIt.Screens.PostScreen : Gtk.Paned {
     PostStore _post_store = PostStore.INSTANCE;
+    Dispatcher _dispatcher = Dispatcher.INSTANCE;
+
+    // Headerbar widgets
+    PostScreenHeaderBar _header_bar;
 
     PostListView _post_list_view;
     PostDetailsView _post_details_view;
     Gtk.Widget _empty_details_view;
-    Gtk.ScrolledWindow _details_view_wrapper;
+    Gtk.ScrolledWindow _scrolled_details_view;
+    Gtk.Box _details_view_wrapper;
 
     construct  {
         get_style_context().add_class("post-view");
 
-        this._post_list_view = new PostListView();
-        this._post_details_view = new PostDetailsView();
+        this._post_list_view = new PostListView("best", null);
         this._empty_details_view = new EmptyPostDetailsView();
 
-        this._details_view_wrapper = new Gtk.ScrolledWindow(null, null);
-        this._details_view_wrapper.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        this._details_view_wrapper.expand = false;
-        this._details_view_wrapper.add(this._empty_details_view);
+        this._details_view_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        this._scrolled_details_view = new Gtk.ScrolledWindow(null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = false
+        };
+        this._scrolled_details_view.add(this._details_view_wrapper);
+
+        this._details_view_wrapper.pack_start(this._empty_details_view, false, false, 0);
+        this._details_view_wrapper.get_style_context().add_class("post-details-wrapper");
 
         this._post_list_view.set_size_request(350, -1);
-        this._details_view_wrapper.set_size_request(800, -1);
+        this._scrolled_details_view.set_size_request(600, -1);
 
-        pack1(this._post_list_view, true, false);
-        pack2(this._details_view_wrapper, true, false);
+        pack1(this._post_list_view, false, false);
+        pack2(this._scrolled_details_view, true, false);
+
         set_position(2);
 
-        this._post_store.emit_change.connect(on_post_store_emit_change);
+        this.size_allocate.connect((allocation) => { 
+            @foreach(w => w.queue_draw());
+        });
+
+        this._post_list_view.selected_post_changed.connect(on_selected_post_changed);
     }
 
-    private void on_post_store_emit_change() {
-        var viewport = this._details_view_wrapper.get_child() as Gtk.Viewport;
+    public PostScreen(MainWindow main_window) {
+        this._header_bar = new PostScreenHeaderBar();
+        this._header_bar.post_sort_by_changed.connect((sort_by) => {
+            stdout.printf("Sort by %s...\n", sort_by);
+            this.remove(this._post_list_view);
+            this._post_list_view = null;
+            this._post_list_view = new PostListView(sort_by, null);
+            this._post_list_view.selected_post_changed.connect(on_selected_post_changed);
+            pack1(this._post_list_view, false, false);
+        });
+        main_window.set_titlebar(this._header_bar);
+    }
 
-        if(this._post_store.current_viewed_post != null) {
-            var post_details = viewport.get_child() as PostDetailsView;
-            if(post_details == null) {
-                this._details_view_wrapper.remove(this._empty_details_view);
-                this._details_view_wrapper.add(this._post_details_view);
-            } 
-        } else {
-            var post_details = viewport.get_child() as PostDetailsView;
-            if(post_details != null) {
-                this._details_view_wrapper.remove(this._post_details_view);
-                this._details_view_wrapper.add(this._empty_details_view);
-            }
+    private void on_selected_post_changed(Post post) {
+        this._details_view_wrapper.@foreach(w => this._details_view_wrapper.remove(w));
+        this._post_details_view = null;
+        this._post_details_view = new PostDetailsView(post);
+        this._details_view_wrapper.pack_start(this._post_details_view, false, false, 0);
+    }
+
+    private class PostScreenHeaderBar :  Gtk.HeaderBar {
+
+        public signal void post_sort_by_changed(string id);
+
+        Gtk.ComboBoxText post_sort_by;
+
+        construct {
+            show_close_button = true;
+            has_subtitle = false;
+            get_style_context().add_class("app-header-bar");
+            set_size_request(-1, 55);
+
+            var custom_header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 1) {
+                hexpand = true
+            };
+            custom_header.get_style_context().add_class("custom-header");
+
+            var search_text = new Gtk.Entry();
+            search_text.get_style_context().add_class("search-text"); 
+            search_text.set_alignment(0.5f);
+            custom_header.set_center_widget(search_text);
+
+            post_sort_by = new Gtk.ComboBoxText() {
+                has_frame = true
+            };
+            post_sort_by.get_style_context().add_class("post_sort_by");
+            post_sort_by.set_size_request(-1, 50);
+            post_sort_by.append("best", "Best");
+            post_sort_by.append("hot", "Hot");
+            post_sort_by.append("top", "Top");
+            post_sort_by.append("new", "New");
+            post_sort_by.append("rising", "Rising");
+            post_sort_by.set_active(0);
+            custom_header.pack_start(post_sort_by, false);
+            post_sort_by.changed.connect(() => post_sort_by_changed(post_sort_by.active_id));
+            post_sort_by.show();
+
+            var mode_switch = new Granite.ModeSwitch.from_icon_name (
+                "display-brightness-symbolic",
+                "weather-clear-night-symbolic"
+            );
+            mode_switch.primary_icon_tooltip_text = ("Light background");
+            mode_switch.secondary_icon_tooltip_text = ("Dark background");
+            mode_switch.valign = Gtk.Align.CENTER;
+            var gtk_settings = Gtk.Settings.get_default ();
+            mode_switch.bind_property ("active", gtk_settings, "gtk_application_prefer_dark_theme");
+            custom_header.pack_end(mode_switch, false, false, 0);
+
+            this.custom_title = custom_header;
         }
 
+        public string post_sort_by_id { 
+            get {
+                return this.post_sort_by.active_id;
+            }
+        }
     }
 
 }
