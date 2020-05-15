@@ -1,7 +1,7 @@
 # ReaddIt for Reddit
 A Reddit client for Elementary OS. (Still a work in progress)
 
-
+![sample](https://github.com/xchan14/readdit/blob/master/docs/readme-image.png?raw=true)
 
 Dependencies:
 - gtk+-3.0
