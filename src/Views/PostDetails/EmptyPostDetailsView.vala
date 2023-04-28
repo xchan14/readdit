@@ -18,18 +18,18 @@
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
+using Gtk;
 
-namespace ReaddIt.Posts.PostDetails.Comments  {
+namespace Readdit.Views.PostDetails {
 
-    public class LoadMoreCommentsAction : Object, Action {
-        public LoadMoreCommentsAction(string? parent_id = null, int depth = 0) {
-            Object(
-                parent_id: parent_id,
-                depth: depth
-            );
+    public class EmptyPostDetailsView : Box {
+
+        construct {
+            orientation = Gtk.Orientation.VERTICAL;
+            pack_start(new Gtk.Label("No selected post"));
+
+            show_all();
         }
-
-        public string parent_id { get; construct; }
-        public int depth { get; construct; }
     }
+
 }

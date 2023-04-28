@@ -19,14 +19,29 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReaddIt.Posts.PostList.LoadPostPreviewAction : Object, Action {
-    public LoadPostPreviewAction(string post_id, string url) {
-        Object(
-            post_id: post_id,
-            url: url
-        );
+using Gee;
+
+namespace Readdit.Models.Comments {
+
+    public class Comment : Object {
+        public Comment(string id, int depth) {
+            Object(
+                id: id, 
+                depth: depth
+            );
+        }
+
+        public string id { get; construct; }
+        public int depth { get; construct; }
+
+        public string text { get; set; }
+        public string comment_by { get; set; }
+        public string comment_by_id { get; set; } 
+        public int score { get; set; }
+        public DateTime date_created { get; set; }
+        public string? parent_id { get; set; }
+
+        public CommentCollection comment_collection { get; set; }
     }
 
-    public string post_id { get; construct; }
-    public string url { get; construct; }
 }

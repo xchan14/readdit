@@ -19,15 +19,18 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
+using Gtk;
 using Gee;
 using Granite.Widgets;
-using ReaddIt.Posts.PostDetails.Comments;
-using ReaddIt.Posts.PostDetails;
-using ReaddIt.DataStores;
+using Readdit.Models.Posts;
+using Readdit.Models.Comments;
+using Readdit.Views.PostDetails;
+using Readdit.Views.Comments;
+using Readdit.DataStores;
 
-namespace ReaddIt.Posts.PostDetails { 
+namespace Readdit.Views.PostDetails { 
     
-    public class PostDetailsView : Gtk.Grid {
+    public class PostDetailsView : Box {
         PostStore _post_store = PostStore.INSTANCE;
         Dispatcher _dispatcher = Dispatcher.INSTANCE;
 
@@ -36,17 +39,15 @@ namespace ReaddIt.Posts.PostDetails {
         
         construct {
             set_size_request(400, -1);
+            get_style_context().add_class("post-details");
+            orientation = Orientation.VERTICAL;
         }
 
         public PostDetailsView(Post post) {
             Object(model: post);
-            column_homogeneous = true;
-            row_spacing = 6;
-            set_row_baseline_position(1, Gtk.BaselinePosition.CENTER);
-            get_style_context().add_class("post-details");
-
+            
             this._post_details_content_view = new PostDetailsContentView(this.model);
-            attach_next_to(this._post_details_content_view, null, Gtk.PositionType.BOTTOM);
+            pack_start(this._post_details_content_view, false, true);
             show_all();
 
             this.size_allocate.connect((allocation) => {
@@ -67,8 +68,8 @@ namespace ReaddIt.Posts.PostDetails {
             if(this._comments_view == null && this.model.comment_collection != null) {
                 stdout.printf("Rendering comments...\n");
                 this._comments_view = new CommentCollectionView(this.model.comment_collection);
-                this._comments_view.get_style_context().add_class("card");
-                attach_next_to(this._comments_view, this._post_details_content_view, Gtk.PositionType.BOTTOM);
+                //this._comments_view.get_style_context().add_class("card");
+                pack_start(this._comments_view, false, true);
                 this._comments_view.show_all();
                 stdout.printf("Comments rendered....\n");
             }

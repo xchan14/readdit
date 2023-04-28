@@ -20,11 +20,11 @@
 */
 
 using Gee;
-using ReaddIt.DataStores;
-using ReaddIt.Posts.PostList.PostListItem;
-using ReaddIt.Users;
+using Readdit.DataStores;
+using Readdit.Users;
+using Readdit.Models.Posts;
 
-namespace ReaddIt.Posts.PostList { 
+namespace Readdit.Views.PostList { 
 
     public class PostListView : Gtk.ScrolledWindow {
 
@@ -33,7 +33,7 @@ namespace ReaddIt.Posts.PostList {
         // Reference to post store.
         private PostStore _post_store = PostStore.INSTANCE;
         // Reference to global dispatcher.
-        private ReaddIt.Dispatcher _dispatcher = ReaddIt.Dispatcher.INSTANCE;
+        private Readdit.Dispatcher _dispatcher = Readdit.Dispatcher.INSTANCE;
         // Listbox widget for the list of posts.
         private Gtk.ListBox _listbox;
         // Data store behind the posts listbox.
@@ -44,7 +44,7 @@ namespace ReaddIt.Posts.PostList {
         private string _current_sort;
         private string _current_subreddit;
 
-        public PostListView(string sort_by, string? subreddit = null)
+        public PostListView(string sort_by = "top", string? subreddit = null)
         {
             this._current_sort = sort_by; 
             this._current_subreddit = subreddit;

@@ -19,15 +19,6 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-.app-main {
-    color: #1a1a1a;
-    background-color:  white;
-}
-
-.app-header-bar {
-    /*  background-color: #1a1a1a; */
-}
-
 .app-header-bar .custom-header {
     background-color:transparent;
     padding-top: 6px;
@@ -40,6 +31,10 @@
     border-radius: 18px;
     border-color: transparent;
     background-color: transparent;
+}
+
+.content-container {
+    padding: 12px 24px 12px 24px;
 }
 
 .post-view {
@@ -63,17 +58,16 @@
     }
  */
 .post-list-item {
-    padding: 16px 24px 16px 24px;
+    padding: 16px;
 }
     
-
     .post-list-item .subreddit {
         color: @ORANGE_500;
         font-weight: bold;
     }
 
     .post-list-item .posted-by {
-        color: @ORANGE_500;
+        /* color: @ORANGE_500; */
         font-weight: bold;
     }
 
@@ -91,7 +85,7 @@
 
     .post-list-item .score {
         font-weight: bold;
-        color: @BANANA_500;
+        /* color: @BANANA_500; */
     }
 
     .post-list-item .date-posted {
@@ -108,25 +102,31 @@
 }
 
 .post-details {
+    padding: 12px 24px 12px 24px;
 }
 
 .post-details-content-header {
-    padding: 12px 24px 12px 24px;
+    padding: 12px 0px 12px 0px;
 }
     combobox.post_sort_by,
     combobox.post_Sort_by window.popup {
         font-weight: bold;
     }
 
-.post-details-content-media {
-    background-color: @BLACK_700;
+.post-details-subreddit {
+    padding-bottom: 24px;
 }
 
 .post-details-title {
     text-shadow: 1px 1px 2px #333; 
-    background-color: @ORANGE_500;
+    /* background-color: @ORANGE_500; */
     padding: 18px;
     color: white;
+}
+
+.post-details-media {
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
+    margin: 24px 0 24px 0;
 }
 
 .post-details-content-body-text {
@@ -137,10 +137,23 @@
 /*
  * COMMENT SECTION
  */
-
-.comment-wrapper {
-    padding: 12px 24px 12px 24px;
+.comment-wrapper,
+.comment-wrapper::selection {
+    /* padding: 12px 0px 12px 0px; */
+    background-color: transparent;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    /* border-left: yellow solid 1px; */
 }
+    .comment-list-box, 
+    .comment-list-box::selection {
+        background-color: transparent;
+    }
+
+    .comment-list-box-indent {
+        background-color: transparent;
+        margin-left: 24px;
+    }
 
 .comment-by {
     font-weight: bold;
@@ -148,13 +161,18 @@
     margin-bottom: 5px;
 }
 
-.comment-text {
-    padding-right: 6px;
+.comment-text { 
+    margin-bottom: 16px;
+}
+
+.comment-score-buttons {
+    font-size: .75em;
 }
 
 .comment-children {
     margin-top: 6px;
-    padding-left: 12px;
+    /* padding-left: 12px; */
+    background-color: transparent;
 }
 
 .comment-more {

@@ -19,29 +19,13 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using Gee;
-
-namespace ReaddIt.Posts.PostDetails.Comments {
-
-    public class Comment : Object {
-        public Comment(string id, int depth) {
-            Object(
-                id: id, 
-                depth: depth
-            );
-        }
-
-        public string id { get; construct; }
-        public int depth { get; construct; }
-
-        public string text { get; set; }
-        public string comment_by { get; set; }
-        public string comment_by_id { get; set; } 
-        public int score { get; set; }
-        public DateTime date_created { get; set; }
-        public string? parent_id { get; set; }
-
-        public CommentCollection comment_collection { get; set; }
+public class Readdit.Models.Posts.LoadMorePostsAction : Object, Action {
+    public LoadMorePostsAction(string sort_by, string? subreddit) {
+        Object(
+            sort_by: sort_by,
+            subreddit: subreddit
+        );
     }
-
+    public string sort_by { get; construct; }
+    public string? subreddit { get; construct; }
 }

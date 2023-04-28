@@ -19,12 +19,14 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using ReaddIt.Utils;
-using ReaddIt.DataStores;
+using Gtk;
+using Readdit.Utils;
+using Readdit.DataStores;
+using Readdit.Models.Posts;
 
-namespace ReaddIt.Posts.PostList.PostListItem { 
+namespace Readdit.Views.PostList { 
 
-    public class PostListItemView : Gtk.Grid {
+    public class PostListItemView : Grid {
         Dispatcher _dispatcher = Dispatcher.INSTANCE;
         PostStore _post_store = PostStore.INSTANCE;
 
@@ -48,7 +50,7 @@ namespace ReaddIt.Posts.PostList.PostListItem {
             style.add_class("post-list-item");
             this.hexpand = true;
             this.column_homogeneous = true;
-            this.row_spacing = 5;
+            this.row_spacing = 2;
 
             this._title =  new Gtk.Label(null);
             this._title.label = post.title;
@@ -60,24 +62,24 @@ namespace ReaddIt.Posts.PostList.PostListItem {
             //this._title.ellipsize = Pango.EllipsizeMode.END;
 
             this._preview = new Gtk.Image();
-            this._preview_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            this._preview_wrapper.halign = Gtk.Align.CENTER;
+            this._preview_wrapper = new Box(Gtk.Orientation.VERTICAL, 0);
+            this._preview_wrapper.halign = Align.CENTER;
             this._preview_wrapper.pack_start(this._preview, true, true, 0);
 
             this._score = new Gtk.Label(null);
             this._score.label = post.score.to_string();
             this._score.get_style_context().add_class("score");
-            this._score.valign = Gtk.Align.END;
+            this._score.valign = Align.END;
 
-            this._subreddit = new Gtk.Label(null);
+            this._subreddit = new Label(null);
             this._subreddit.label = post.subreddit;
             this._subreddit.get_style_context().add_class("subreddit");
 
-            this._posted_by = new Gtk.Label(null);
+            this._posted_by = new Label(null);
             this._posted_by.label = post.posted_by;
             this._posted_by.get_style_context().add_class("posted-by");
 
-            this._date_posted = new Gtk.Label(null);
+            this._date_posted = new Label(null);
             this._date_posted.get_style_context().add_class("date-posted");
             this._date_posted.xalign = 0.0f;
             string date_format = "%B %e, %Y";
@@ -88,18 +90,18 @@ namespace ReaddIt.Posts.PostList.PostListItem {
             this._date_posted.label = model.date_created.to_local().format(date_format);
 
 
-            this._header_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            this._header_wrapper.baseline_position = Gtk.BaselinePosition.BOTTOM;
+            this._header_wrapper = new Box(Orientation.HORIZONTAL, 0);
+            this._header_wrapper.baseline_position = BaselinePosition.BOTTOM;
             this._header_wrapper.pack_start(_score, false, false, 0);
-            this._header_wrapper.pack_start(new Gtk.Label(" "), false, false, 0);
+            this._header_wrapper.pack_start(new Label(" "), false, false, 0);
             this._header_wrapper.pack_start(_posted_by, false, false, 0);
-            this._header_wrapper.pack_start(new Gtk.Label(" in "), false, false, 0);
+            this._header_wrapper.pack_start(new Label(" in "), false, false, 0);
             this._header_wrapper.pack_start(_subreddit, false, false, 0);
             this._header_wrapper.forall((widget) => {
-                ((Gtk.Label)widget).valign = Gtk.Align.END;
+                ((Label)widget).valign = Gtk.Align.END;
             });
 
-            this._footer_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            this._footer_wrapper = new Box(Orientation.HORIZONTAL, 0);
             this._footer_wrapper.pack_start(this._date_posted);
 
             attach(this._header_wrapper, 1, 1, 3, 1);
@@ -111,7 +113,7 @@ namespace ReaddIt.Posts.PostList.PostListItem {
             }
             attach(this._footer_wrapper, 1, 3, 2, 1);
 
-            set_row_baseline_position(2, Gtk.BaselinePosition.CENTER);
+            set_row_baseline_position(2, BaselinePosition.CENTER);
 
             show_all();
              

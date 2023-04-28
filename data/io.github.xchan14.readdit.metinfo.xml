@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 Christian Camilon <christiancamilon@gmail.com> -->
+<component type="desktop-application">
+  <id>io.github.xchan14.readdit</id>
+  
+  <name>Readdit</name>
+  <summary>Reddit client for Elementray OS</summary>
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>AGPL-3.0-or-later</project_license>
+  
+  <description>
+    <p>
+      Browse Reddit in Elementary OS using this native app.
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">io.github.xchan14.readit.desktop</launchable>
+</component>

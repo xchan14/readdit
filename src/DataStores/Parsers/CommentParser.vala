@@ -20,15 +20,16 @@
 */
 
 using Gee;
-using ReaddIt.Posts.PostDetails.Comments;
+using Readdit.Models.Comments;
+using Json;
 
-namespace ReaddIt.DataStores.Parsers {
+namespace Readdit.DataStores.Parsers {
 
     /**
      *  Parses a Comment object from comment json data returned by API.
      */ 
     public class CommentParser {
-        Json.Parser _parser = new Json.Parser();
+        Parser _parser = new Parser();
 
         public CommentCollection parse_comments(string? parent_id, string data) {
             this._parser.load_from_data(data, -1);

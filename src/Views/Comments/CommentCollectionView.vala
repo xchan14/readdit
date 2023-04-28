@@ -19,30 +19,38 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using ReaddIt.DataStores;
+using Gtk;
+using Readdit.DataStores;
+using Readdit.Models.Comments;
 
-namespace ReaddIt.Posts.PostDetails.Comments {
+namespace Readdit.Views.Comments {
+
     public class CommentCollectionView : Gtk.Box {
-        ReaddIt.Dispatcher _dispatcher = ReaddIt.Dispatcher.INSTANCE; 
+        Readdit.Dispatcher _dispatcher = Readdit.Dispatcher.INSTANCE; 
         PostStore _post_store = PostStore.INSTANCE;
 
         public signal void load_more_click(string comment_id, string[] children);
 
-        Gtk.ListBox _list_box;
-        Gtk.Label _more_comments_label;
+        ListBox _list_box;
+        Label _more_comments_label;
 
         public CommentCollectionView(CommentCollection? comment_collection) {
-            this.model = comment_collection;
-            orientation = Gtk.Orientation.VERTICAL;
-            expand = false;
-            /*if(this.model.depth > 0) {
-                margin_start = 8;
-            }*/
 
-            this._list_box = new Gtk.ListBox(){
-                selection_mode = Gtk.SelectionMode.NONE
+            this.model = comment_collection;
+            orientation = Orientation.VERTICAL;
+            expand = false;
+            resize_mode = ResizeMode.PARENT;
+
+            this._list_box = new ListBox(){
+                selection_mode = SelectionMode.NONE
             };
-            this._more_comments_label = new Gtk.Label(null) {
+            var list_box_style = this._list_box.get_style_context();
+            list_box_style.add_class("comment-list-box");
+            if(this.model.depth > 0) {
+                list_box_style.add_class("comment-list-box-indent");
+            }
+
+            this._more_comments_label = new Label(null) {
                 xalign = 0.0f,
                 use_markup = true
             };

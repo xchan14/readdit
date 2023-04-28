@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Readdit for Reddit
+Name=Readdit
 GenericName=Reddit Client
-Comment=Browse reddit with Readit.
+Comment=Browse reddit with Readdit.
 Categories=Internet;
-Exec=com.github.xchan14.readit
+Exec=io.github.xchan14.readdit
 Icon=application-default-icon
 Terminal=false
 Type=Application

@@ -20,17 +20,16 @@
 */
 
 using Gee;
-using ReaddIt.Posts;
-using ReaddIt.Posts.PostList;
-using ReaddIt.Posts.PostDetails;
-using ReaddIt.Posts.PostDetails.Comments;
-using ReaddIt.DataStores.Parsers;
+using Readdit.DataStores.Parsers;
+using Readdit.Models.Posts;
+using Readdit.Models.Comments;
+using Readdit.Views.PostList;
+using Readdit.Views.PostDetails;
 
-namespace ReaddIt.DataStores {
+namespace Readdit.DataStores {
 
     public class PostStore : Object {
         private static PostStore _instance;
-        private static string REDDIT_BASE_API = "http://reddit.com";
 
         public signal void emit_change();
 
@@ -51,6 +50,10 @@ namespace ReaddIt.DataStores {
                 }
                 return _instance;
             }
+        }
+
+        public static void init() {
+            var instance = INSTANCE;
         }
 
         public Collection<Post> loaded_posts { 
@@ -124,7 +127,7 @@ namespace ReaddIt.DataStores {
             
             var endpoint = subreddit == null ? sort_by : subreddit + "/" + sort_by;
             stdout.printf("url endpoint: %s...\n", endpoint);
-            var url = REDDIT_BASE_API + "/" + endpoint + ".json?"
+            var url = Constants.REDDIT_BASE_API + "/" + endpoint + ".json?"
                     + "&limit=10"
                     + "&after=" + last_loaded_post_id;
 
@@ -231,7 +234,7 @@ namespace ReaddIt.DataStores {
                 this.emit_change();
                 return;
             }
-            string url = REDDIT_BASE_API + "/" + post.subreddit + "/comments/article.json?"
+            string url = Constants.REDDIT_BASE_API + "/" + post.subreddit + "/comments/article.json?"
                 + "&raw_json=1" 
                 + "&article=" + post.id.replace("t3_", "")
                 + "&after=" + after;
@@ -278,7 +281,7 @@ namespace ReaddIt.DataStores {
 
             // Send http request.
             string joined_children = string.joinv(",", children_ids.to_array());
-            string url = REDDIT_BASE_API + "/api/morechildren.json?"
+            string url = Constants.REDDIT_BASE_API + "/api/morechildren.json?"
                 + "&api_type=json"
                 + "&link_id=" + this.current_viewed_post.id
                 + "&limit_children=true"

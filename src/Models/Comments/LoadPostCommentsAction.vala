@@ -19,9 +19,17 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReaddIt.Posts.PostList.ViewPostAction : Object, Action {
-    public ViewPostAction(string post_id) { 
-        Object(post_id: post_id);
+namespace Readdit.Models.Comments  {
+
+    public class LoadPostCommentsAction : Object, Action {
+        public LoadPostCommentsAction(string post_id, string? after = null) {
+            Object(
+                post_id: post_id,
+                after: after
+            );
+        }
+
+        public string post_id { get; construct; }
+        public string after { get; construct; }
     }
-    public string post_id { get; construct; }
 }

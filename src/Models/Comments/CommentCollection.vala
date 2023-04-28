@@ -21,7 +21,7 @@
 
 using Gee;
 
-namespace ReaddIt.Posts.PostDetails.Comments {
+namespace Readdit.Models.Comments {
     public class CommentCollection : ArrayList<Comment> {
         
         public CommentCollection(string? parent_id = null, int depth) {

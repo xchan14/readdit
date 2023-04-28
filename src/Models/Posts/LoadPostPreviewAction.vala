@@ -19,16 +19,14 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-namespace ReaddIt.Posts.PostDetails {
-
-    public class EmptyPostDetailsView : Gtk.Box {
-
-        construct {
-            orientation = Gtk.Orientation.VERTICAL;
-            pack_start(new Gtk.Label("No selected post"));
-
-            show_all();
-        }
+public class Readdit.Models.Posts.LoadPostPreviewAction : Object, Action {
+    public LoadPostPreviewAction(string post_id, string url) {
+        Object(
+            post_id: post_id,
+            url: url
+        );
     }
 
+    public string post_id { get; construct; }
+    public string url { get; construct; }
 }

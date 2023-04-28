@@ -1,38 +1,55 @@
-Build started at 2020-05-03T10:49:48.184573
+Build started at 2023-04-29T01:12:30.053141
 Main binary: /usr/bin/python3
+Build Options: -Dprefix=/usr -Dbackend=ninja
 Python system: Linux
 The Meson build system
-Version: 0.49.2
-Source dir: /home/xchan/Documents/Github/xchan14/readdit
-Build dir: /home/xchan/Documents/Github/xchan14/readdit/build
+Version: 0.61.2
+Source dir: /home/xchan/Documents/source codes/readdit
+Build dir: /home/xchan/Documents/source codes/readdit/build
 Build type: native build
-Project name: com.github.xchan14.readdit
+Project name: io.github.xchan14.readdit
 Project version: undefined
-Native C compiler: cc (gcc 7.5.0 "cc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0")
-Native Vala compiler: valac (valac 0.40.20)
+C compiler for the host machine: cc (gcc 11.3.0 "cc (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0")
+C linker for the host machine: cc ld.bfd 2.38
+Vala compiler for the host machine: valac (valac 0.56.7)
+C compiler for the build machine: cc (gcc 11.3.0 "cc (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0")
+C linker for the build machine: cc ld.bfd 2.38
+Vala compiler for the build machine: valac (valac 0.56.7)
 Build machine cpu family: x86_64
 Build machine cpu: x86_64
-Found pkg-config: /usr/bin/pkg-config (0.29.1)
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Pkg-config binary for 0 is not cached.
+Pkg-config binary missing from cross or native file, or env var undefined.
+Trying a default Pkg-config fallback at pkg-config
+Found pkg-config: /usr/bin/pkg-config (0.29.2)
 Determining dependency 'glib-2.0' with pkg-config executable '/usr/bin/pkg-config'
+env[PKG_CONFIG_PATH]: 
 Called `/usr/bin/pkg-config --modversion glib-2.0` -> 0
-2.56.4
+2.72.4
+env[PKG_CONFIG_PATH]: 
 Called `/usr/bin/pkg-config --cflags glib-2.0` -> 0
 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
-Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
+env[PKG_CONFIG_ALLOW_SYSTEM_LIBS]: 1
+env[PKG_CONFIG_PATH]: 
+Called `/usr/bin/pkg-config --libs glib-2.0` -> 0
 -L/usr/lib/x86_64-linux-gnu -lglib-2.0
-Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
+env[PKG_CONFIG_PATH]: 
+Called `/usr/bin/pkg-config --libs glib-2.0` -> 0
 -lglib-2.0
 Running compile:
-Working directory:  /tmp/tmpoeldrfjm
-Command line:  cc /tmp/tmpoeldrfjm/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -o /tmp/tmpoeldrfjm/output.exe -O0 
+Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmp8ovyk1az
+Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmp8ovyk1az/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmp8ovyk1az/output.exe -D_FILE_OFFSET_BITS=64 -O0 
 
 Code:
  #include<stdio.h>
         
-        int main(int argc, char **argv) {
+        int main(void) {
             printf("%ld\n", (long)(sizeof(void *)));
             return 0;
-        };
+        }
 Compiler stdout:
  
 Compiler stderr:
@@ -45,36 +62,49 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /tmp/tmp8_4g5gtu
-Command line:  cc /tmp/tmp8_4g5gtu/testfile.c -pipe -D_FILE_OFFSET_BITS=64 -c -o /tmp/tmp8_4g5gtu/output.obj -O0 --print-search-dirs 
+Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmp72fc2y5p
+Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmp72fc2y5p/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmp72fc2y5p/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
 
 Code:
  
 Compiler stdout:
- install: /usr/lib/gcc/x86_64-linux-gnu/7/
-programs: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/bin/
-libraries: =/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/7/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/7/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
+ install: /usr/lib/gcc/x86_64-linux-gnu/11/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/11/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/11/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
 
 Compiler stderr:
  
-Dependency gtk+-3.0 found: YES (cached)
-Dependency granite found: YES (cached)
-Dependency gee-0.8 found: YES (cached)
-Dependency libsoup-2.4 found: YES (cached)
-Dependency json-glib-1.0 found: YES (cached)
-Dependency gio-2.0 found: YES (cached)
-Dependency clutter-1.0 found: YES (cached)
-Dependency clutter-gst-3.0 found: YES (cached)
-Dependency clutter-gtk-1.0 found: YES (cached)
-Determining dependency 'webkit2gtk-4.0' with pkg-config executable '/usr/bin/pkg-config'
-Called `/usr/bin/pkg-config --modversion webkit2gtk-4.0` -> 0
-2.28.2
-Called `/usr/bin/pkg-config --cflags webkit2gtk-4.0` -> 0
--pthread -I/usr/include/webkitgtk-4.0 -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng16 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/webkitgtk-4.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
-Called `/usr/bin/pkg-config webkit2gtk-4.0 --libs` -> 0
--L/usr/lib/x86_64-linux-gnu -lwebkit2gtk-4.0 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lsoup-2.4 -lgio-2.0 -ljavascriptcoregtk-4.0 -lgobject-2.0 -lglib-2.0
-Called `/usr/bin/pkg-config webkit2gtk-4.0 --libs` -> 0
--lwebkit2gtk-4.0 -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lsoup-2.4 -lgio-2.0 -ljavascriptcoregtk-4.0 -lgobject-2.0 -lglib-2.0
-Dependency webkit2gtk-4.0 found: YES 2.28.2
-Build targets in project: 8
-Found ninja-1.8.2 at /usr/bin/ninja
+Program glib-compile-resources found: YES (/usr/bin/glib-compile-resources)
+Dependency gtk+-3.0 found: YES 3.24.33 (cached)
+Dependency granite found: YES 6.2.0 (cached)
+Dependency gee-0.8 found: YES 0.20.5 (cached)
+Dependency libsoup-2.4 found: YES 2.74.2 (cached)
+Dependency json-glib-1.0 found: YES 1.6.6 (cached)
+Dependency gio-2.0 found: YES 2.72.4 (cached)
+Dependency clutter-1.0 found: YES 1.26.4 (cached)
+Dependency clutter-gst-3.0 found: YES 3.0.27 (cached)
+Dependency clutter-gtk-1.0 found: YES 1.8.4 (cached)
+Dependency webkit2gtk-4.0 found: YES 2.38.5 (cached)
+Dependency libhandy-1 found: YES 1.6.1 (cached)
+Build targets in project: 10
+
+io.github.xchan14.readdit undefined
+
+  User defined options
+    backend: ninja
+    prefix : /usr
+
+Found ninja-1.10.1 at /usr/bin/ninja
+Running compile:
+Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmpls1g_30b
+Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmpls1g_30b/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmpls1g_30b/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-linux-gnu/11/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/11/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/11/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 

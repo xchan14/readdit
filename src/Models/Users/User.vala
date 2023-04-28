@@ -1,4 +1,3 @@
-
 /*
 * Copyright (c) 2020 Christian Camilon 
 *
@@ -18,8 +17,11 @@
 * Boston, MA 02110-1301 USA
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
-*/
-public class Readdit.Utils.ImageUtils {
+*/    
 
+public class Readdit.Users.User {
 
+    public string id { get; set; }
+    public string name { get; set; }
+    public string profile_image_url { get; set; }
 }

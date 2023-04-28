@@ -1,27 +1,35 @@
+
+using Gtk;
+using Gdk;
 using Granite.Widgets;
-using ReaddIt;
-using ReaddIt.DataStores;
+using Readdit;
+using Readdit.DataStores;
+using Readdit.Models.Posts;
 
-namespace ReaddIt.Posts.PostDetails {
+namespace Readdit.Views.PostDetails {
 
 
-    public class PostDetailsContentView : Gtk.Grid {
+    public class PostDetailsContentView : Box {
         Dispatcher _dispatcher = Dispatcher.INSTANCE;
         PostStore _post_store = PostStore.INSTANCE;
 
-        Gtk.Grid _details_header;
-        Gtk.Label _post_title;
+        Box _details_header;
+        Label _post_title;
+        Label _post_subreddit;
+        Label _post_posted_by;
 
-        Gtk.Box _details_content;
-        Gtk.Box _media_wrapper;
-        Gtk.Image _image;
-        Gdk.Pixbuf _image_pixbuf;
+        Box _details_content;
+        Box _media_wrapper;
+        Image _image;
+        Pixbuf _image_pixbuf;
         VideoPlayer _video_player;
-        Gtk.Label _body_text;
+        Label _body_text;
 
         ~PostDetailsContentView() {
             this._details_header = null;
             this._post_title = null;
+            this._post_posted_by = null;
+            this._post_subreddit = null;
 
             this._details_content = null;
             this._image_pixbuf = null;
@@ -40,30 +48,51 @@ namespace ReaddIt.Posts.PostDetails {
 
         private void init_gui() {
             var style = get_style_context();
-            style.add_class("card"); 
+            //style.add_class("card"); 
             style.add_class("post-details-content");
+            orientation = Orientation.VERTICAL;
 
             /*
              * Header Details contains title, post, user, score, subreddit.
              */
-            this._details_header = new Gtk.Grid();
+            this._details_header = new Box(Orientation.VERTICAL, 0);
             this._details_header.get_style_context().add_class("post-details-content-header");
-            this._details_header.row_homogeneous = true;
-            this._post_title = new Gtk.Label(null) {
+
+            // Subreddit
+            this._post_subreddit = new Label(null) {
+                label = this.model.subreddit,
+                wrap = true,
+                xalign = 0.0f
+            };
+            this._post_subreddit.get_style_context().add_class("post-details-subreddit");
+            this._post_subreddit.get_style_context().add_class("h2");
+            this._details_header.pack_start(this._post_subreddit, false, true);
+            
+            // Title
+            this._post_title = new Label(null) {
                 label = this.model.title,
                 wrap = true,
                 xalign = 0.0f
             };
-            this._post_title.get_style_context().add_class("h4");
-            this._details_header.attach(this._post_title, 1, 1);
+            this._post_title.get_style_context().add_class("h1");
+            this._details_header.pack_start(this._post_title, false, true);
+
+            // Posted By
+            this._post_posted_by = new Label(null) {
+                label = this.model.posted_by,
+                wrap = true,
+                xalign = 0.0f
+            };
+            this._details_header.pack_start(this._post_posted_by, false, true);
+
 
             /*
-             * Content Details includes image, viedeos, or text content.
+             * Content Details includes image, videos, or text content.
              */
-            this._details_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            this._details_content = new Box(Gtk.Orientation.VERTICAL, 0);
             if(this.model.image_url != null || this.model.media_url != null) {
-                this._media_wrapper = new Gtk.Box(Gtk.Orientation.VERTICAL, 0){
-                    hexpand = true
+                this._media_wrapper = new Box(Gtk.Orientation.VERTICAL, 0){
+                    hexpand = false
                 };
                 this._media_wrapper.get_style_context().add_class("post-details-content-media");
                 this._details_content.pack_start(
@@ -84,7 +113,7 @@ namespace ReaddIt.Posts.PostDetails {
             }
 
             if(this.model.body_text != null && this.model.body_text.length > 0) {
-                this._body_text = new Gtk.Label(null) {
+                this._body_text = new Label(null) {
                     label = this.model.body_text,
                     xalign = 0.0f,
                     selectable = true,
@@ -103,9 +132,8 @@ namespace ReaddIt.Posts.PostDetails {
 
             }
 
-            attach(this._details_header, 1, 1);
-            attach(this._details_content, 1, 2);
-
+            pack_start(this._details_header, true, true);
+            pack_start(this._details_content, true, true);
         }
 
         private void bind_events() {
@@ -139,8 +167,9 @@ namespace ReaddIt.Posts.PostDetails {
             this._image_pixbuf = this._image_pixbuf.scale_simple(new_width, new_height, Gdk.InterpType.BILINEAR);
             this._image = new Gtk.Image.from_pixbuf(this._image_pixbuf);
             var image_box_wrapper = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            this._media_wrapper.set_center_widget(image_box_wrapper);
-            image_box_wrapper.set_center_widget(this._image);
+            this._media_wrapper.pack_start(image_box_wrapper, false, false);
+            this._media_wrapper.get_style_context().add_class("post-details-media");
+            image_box_wrapper.pack_start(this._image, false, false);
             image_box_wrapper.show_all();
         }
 

@@ -19,12 +19,14 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using ReaddIt.DataStores;
-using ReaddIt.Posts;
-using ReaddIt.Posts.PostList;
-using ReaddIt.Posts.PostDetails;
+using Gtk;
+using Readdit.DataStores;
+using Readdit.Models.Posts;
+using Readdit.Views.PostList;
+using Readdit.Views.PostDetails;
+using Readdit;
 
-public class ReaddIt.Screens.PostScreen : Gtk.Paned {
+public class Readdit.Screens.PostScreen : Gtk.Paned {
     PostStore _post_store = PostStore.INSTANCE;
     Dispatcher _dispatcher = Dispatcher.INSTANCE;
 
@@ -68,7 +70,7 @@ public class ReaddIt.Screens.PostScreen : Gtk.Paned {
         this._post_list_view.selected_post_changed.connect(on_selected_post_changed);
     }
 
-    public PostScreen(MainWindow main_window) {
+    public PostScreen(ApplicationWindow main_window) {
         this._header_bar = new PostScreenHeaderBar();
         this._header_bar.post_sort_by_changed.connect((sort_by) => {
             stdout.printf("Sort by %s...\n", sort_by);
@@ -78,6 +80,9 @@ public class ReaddIt.Screens.PostScreen : Gtk.Paned {
             this._post_list_view.selected_post_changed.connect(on_selected_post_changed);
             pack1(this._post_list_view, false, false);
         });
+
+        this._header_bar.get_style_context().add_class(Gtk.STYLE_CLASS_FLAT);
+        this._header_bar.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR);
         main_window.set_titlebar(this._header_bar);
     }
 

@@ -19,10 +19,10 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-using ReaddIt.Users;
+using Readdit.Users;
 using Gee;
 
-namespace ReaddIt.DataStores {
+namespace Readdit.DataStores {
 
     public class UserStore : GLib.Object {
 

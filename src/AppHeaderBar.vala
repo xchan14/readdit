@@ -22,7 +22,8 @@
 using Gtk;
 
 
-public class ReaddIt.AppHeaderBar : HeaderBar {
+/* 
+public class Readdit.AppHeaderBar : HeaderBar {
 
     construct {
         show_close_button = true;
@@ -41,3 +42,5 @@ public class ReaddIt.AppHeaderBar : HeaderBar {
     }
 
 }
+
+*/

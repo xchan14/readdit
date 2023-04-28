@@ -18,12 +18,14 @@
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
+using Readdit;
+using Readdit.DataStores;
 
-public class ReaddIt.Application : Gtk.Application {
+public class Readdit.Application : Gtk.Application {
 
     public Application(){
         Object(
-            application_id: "com.github.xchan14.readdit",
+            application_id: "io.github.xchan14.readdit",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
@@ -34,15 +36,16 @@ public class ReaddIt.Application : Gtk.Application {
             error ("Could not initalize clutter: %s ", err.to_string ());
         }
         Gst.init (ref args);
+        PostStore.init();
 
         var app = new Application();
         return app.run(args);
     }
 
     protected override void activate(){
-        var window = new MainWindow(this);
-        //Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true; 
-        window.destroy.connect( s =>  {
+        var main_window = new MainWindow(this);
+        add_window (main_window);
+        main_window.destroy.connect( s =>  {
             Gst.deinit();
             Gtk.main_quit();
         });

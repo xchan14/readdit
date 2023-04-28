@@ -20,9 +20,9 @@
 */
 
 using Gee;
-using ReaddIt.Posts;
+using Readdit.Models.Posts;
 
-namespace ReaddIt.DataStores.Parsers {
+namespace Readdit.DataStores.Parsers {
 
     public class PostParser {
 

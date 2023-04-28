@@ -19,15 +19,17 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-namespace ReaddIt.Posts.PostDetails {
-    public class LoadPostDetailsImageAction : Object, Action {
-        public LoadPostDetailsImageAction(string post_id, string image_url) {
+namespace Readdit.Models.Comments  {
+
+    public class LoadMoreCommentsAction : Object, Action {
+        public LoadMoreCommentsAction(string? parent_id = null, int depth = 0) {
             Object(
-                post_id: post_id,
-                image_url: image_url
+                parent_id: parent_id,
+                depth: depth
             );
         }
-        public string post_id { get; construct; }
-        public string image_url { get; construct; }
+
+        public string parent_id { get; construct; }
+        public int depth { get; construct; }
     }
 }

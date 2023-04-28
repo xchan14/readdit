@@ -19,13 +19,9 @@
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
 
-public class ReaddIt.Posts.PostList.LoadMorePostsAction : Object, Action {
-    public LoadMorePostsAction(string sort_by, string? subreddit) {
-        Object(
-            sort_by: sort_by,
-            subreddit: subreddit
-        );
+public class Readdit.Models.Posts.ViewPostAction : Object, Action {
+    public ViewPostAction(string post_id) { 
+        Object(post_id: post_id);
     }
-    public string sort_by { get; construct; }
-    public string? subreddit { get; construct; }
+    public string post_id { get; construct; }
 }

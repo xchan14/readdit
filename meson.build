@@ -1,4 +1,4 @@
-project('com.github.xchan14.readdit', 'vala', 'c')
+project('io.github.xchan14.readdit', 'vala', 'c')
 
 i18n = import('i18n')
 gnome = import('gnome')
@@ -21,36 +21,42 @@ executable(
     'src/Application.vala',
     'src/AppHeaderBar.vala',
     'src/Dispatcher.vala',
-    'src/MainWindow.vala',
+    'src/Contants.vala',
+    'src/Views/MainWindow.vala',
+
+    'src/Views/Layout/Sidebar.vala',
+    'src/Views/Layout/MainContent.vala',
 
     'src/DataStores/Parsers/CommentParser.vala',
     'src/DataStores/Parsers/PostParser.vala',
     'src/DataStores/PostStore.vala',
     'src/DataStores/UserStore.vala',
 
-    'src/Posts/PostDetails/Comments/Comment.vala',
-    'src/Posts/PostDetails/Comments/CommentCollection.vala',
-    'src/Posts/PostDetails/Comments/CommentCollectionView.vala',
-    'src/Posts/PostDetails/Comments/CommentItemView.vala',
-    'src/Posts/PostDetails/Comments/LoadMoreCommentsAction.vala',
-    'src/Posts/PostDetails/Comments/LoadPostCommentsAction.vala',
+    'src/Models/Comments/Comment.vala',
+    'src/Models/Comments/CommentCollection.vala',
+    'src/Models/Comments/LoadMoreCommentsAction.vala',
+    'src/Models/Comments/LoadPostCommentsAction.vala',
 
-    'src/Posts/Post.vala',
-    'src/Posts/PostDetails/LoadPostDetailsImageAction.vala',
-    'src/Posts/PostDetails/NoSelectedPostDetailsView.vala',
-    'src/Posts/PostDetails/PostDetailsContentView.vala',
-    'src/Posts/PostDetails/PostDetailsView.vala',
-   
-    'src/Posts/PostList/LoadMorePostsAction.vala',
-    'src/Posts/PostList/LoadPostPreviewAction.vala',
-    'src/Posts/PostList/PostListView.vala',
-    'src/Posts/PostList/PostListItemView.vala',
-    'src/Posts/PostList/ViewPostAction.vala',
+    'src/Views/Comments/CommentItemView.vala',
+    'src/Views/Comments/CommentCollectionView.vala',
+
+    'src/Models/Posts/Post.vala',
+    'src/Models/Posts/LoadPostDetailsImageAction.vala',
+    'src/Models/Posts/LoadMorePostsAction.vala',
+    'src/Models/Posts/LoadPostPreviewAction.vala',
+    'src/Models/Posts/ViewPostAction.vala',
+
+    'src/Views/PostList/PostListView.vala',
+    'src/Views/PostList/PostListItemView.vala',
+
+    'src/Views/PostDetails/PostDetailsContentView.vala',
+    'src/Views/PostDetails/PostDetailsView.vala',
+    'src/Views/PostDetails/EmptyPostDetailsView.vala',
 
     'src/Screens/PostScreen.vala',
 
-    'src/Users/User.vala',
-    'src/Widgets/VideoPlayer.vala',
+    'src/Models/Users/User.vala',
+    'src/Views/Widgets/VideoPlayer.vala',
 
     'src/Utils/ImageUtils.vala',
     
@@ -65,6 +71,7 @@ executable(
         dependency('clutter-gst-3.0'),
         dependency('clutter-gtk-1.0'),
         dependency('webkit2gtk-4.0'),
+        dependency('libhandy-1', version: '>=0.90.0')
     ],
     install: true
 )
