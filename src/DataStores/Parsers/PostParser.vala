@@ -29,18 +29,22 @@ namespace Readdit.DataStores.Parsers {
         public Collection<Post> parse_from_data(string data) {
             var list = new ArrayList<Post>();
             var parser = new Json.Parser();
-            parser.load_from_data(data, -1);
-            Json.Object root_object = parser.get_root ().get_object ();
-            Json.Array post_items = root_object
-                .get_object_member("data")
-                .get_array_member("children"); 
+            try {
+                parser.load_from_data(data, -1);
+                Json.Object root_object = parser.get_root ().get_object ();
+                Json.Array post_items = root_object
+                    .get_object_member("data")
+                    .get_array_member("children"); 
 
-            GLib.List<weak Json.Node> items = post_items.get_elements();
-            foreach(Json.Node post_node in items) {
-                Post post = map_post_from_json(post_node);
-                list.add(post);
+                GLib.List<weak Json.Node> items = post_items.get_elements();
+                foreach(Json.Node post_node in items) {
+                    Post post = map_post_from_json(post_node);
+                    list.add(post);
+                }
+                return list;
+            } catch(Error e) {
+                error(e.message);
             }
-            return list;
         }
 
 

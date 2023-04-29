@@ -136,19 +136,15 @@ namespace Readdit.DataStores {
 
             session.queue_message(message, (sess, mess) => {
 
-                try {
-                    stdout.printf("Parsing data from response.\n");
-                    string data = (string)message.response_body.flatten().data;
-                    var post_parser = new PostParser();
-                    this._loaded_posts.add_all(post_parser.parse_from_data(data)); 
-                } catch(Error e) {
-                    stderr.printf("Error: %s\n", e.message);
-                }
+                stdout.printf("Parsing data from response.\n");
+                string data = (string)message.response_body.flatten().data;
+                var post_parser = new PostParser();
+                this._loaded_posts.add_all(post_parser.parse_from_data(data)); 
 
-                stdout.printf("Caching posts finished...\n");
+                info("Caching posts finished...\n");
 
                 this._is_loading_post = false;
-                stdout.printf("Total posts: %d\n", this._loaded_posts.size);
+                info("Total posts: %d\n", this._loaded_posts.size);
                 this.emit_change();
             });
 

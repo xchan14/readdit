@@ -18,3 +18,27 @@
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
+public class FormatUtils {
+
+    public const int SCORE_MILLION = 1000000;
+    public const int SCORE_THOUSAND = 1000;
+    public const int SCORE_ONE = 1;
+
+    public static string FormatScore(int score, int denominator = SCORE_ONE) {
+        var x = score / denominator;
+
+        if(x >= SCORE_THOUSAND) 
+            return FormatScore(score, SCORE_THOUSAND);
+        if(x >= SCORE_MILLION)
+            return FormatScore(score, SCORE_MILLION);
+
+        var suffix = "";
+        if(denominator == SCORE_ONE) suffix = "";
+        else if(denominator == SCORE_THOUSAND) suffix = "k";
+        else if(denominator == SCORE_MILLION) suffix = "M";
+        else suffix = "B";
+
+        return x.to_string() + suffix;
+    }
+
+}

@@ -19,7 +19,32 @@
 *
 * Authored by: Christian Camilon <christiancamilon@gmail.com>
 */
+using Gdk;
+
 public class Readdit.Utils.ImageUtils {
 
+    public static Pixbuf CropToSquare(Pixbuf original_image, int size = 100) {
+        // Calculate the new dimensions for the cropped image
+        int width = original_image.get_width();
+        int height = original_image.get_height();
+        int x_offset = 0;
+        int y_offset = 0;
+        
+        if (width > height) {
+            x_offset = (width - height) / 2;
+            width = height;
+        } else {
+            y_offset = (height - width) / 2;
+            height = width;
+        }
+        
+        // Crop the image
+        Pixbuf cropped_image = new Pixbuf.subpixbuf(original_image, x_offset, y_offset, width, height);
+            
+        // Scale the image to the desired size
+        Pixbuf scaled_image = cropped_image.scale_simple(size, size, InterpType.BILINEAR);
+
+        return scaled_image;
+    }
 
 }

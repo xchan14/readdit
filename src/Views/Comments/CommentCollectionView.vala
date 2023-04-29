@@ -80,12 +80,8 @@ namespace Readdit.Views.Comments {
         public CommentCollection model { get; set; }
 
         private bool on_load_more_click(Gtk.Widget w, Gdk.EventButton eb) {
-            try {
-                stdout.printf("Loading more comments from parent %s at depth %d...\n", model.parent_id, model.depth);
-                this._dispatcher.dispatch(new LoadMoreCommentsAction(model.parent_id, model.depth));
-            } catch(Error e) {
-                stderr.printf("Error: %s\n", e.message);
-            }
+            stdout.printf("Loading more comments from parent %s at depth %d...\n", model.parent_id, model.depth);
+            this._dispatcher.dispatch(new LoadMoreCommentsAction(model.parent_id, model.depth));
             return true;
         }
 

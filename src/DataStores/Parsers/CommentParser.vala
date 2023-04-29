@@ -32,42 +32,52 @@ namespace Readdit.DataStores.Parsers {
         Parser _parser = new Parser();
 
         public CommentCollection parse_comments(string? parent_id, string data) {
-            this._parser.load_from_data(data, -1);
-            var root_object = this._parser.get_root().get_array();
-            GLib.List<weak Json.Node> json_comments = root_object.get_element(1) 
-                .get_object() 
-                .get_object_member("data") 
-                .get_array_member("children")
-                .get_elements();
-            
-            return parse_comments_recursively(parent_id, 0, json_comments);
+            try {
+                this._parser.load_from_data(data, -1);
+                var root_object = this._parser.get_root().get_array();
+                GLib.List<weak Json.Node> json_comments = root_object.get_element(1) 
+                    .get_object() 
+                    .get_object_member("data") 
+                    .get_array_member("children")
+                    .get_elements();
+                
+                return parse_comments_recursively(parent_id, 0, json_comments);
+            } catch(Error e) {
+                error(e.message);
+            }
         }
 
         public Collection<Comment> parse_more_comments(string data) {
-            this._parser.load_from_data(data, -1);
-            var root_object = this._parser.get_root().get_object();
-
-            GLib.List<weak Json.Node> things_nodes = root_object 
-                .get_object_member("json")
-                .get_object_member("data")
-                .get_array_member("things")
-                .get_elements();
-            
-            var comments = new ArrayList<Comment>();
-            foreach(Json.Node comment_node in things_nodes) {
-                Json.Object comment_obj = comment_node.get_object();
-                string kind = comment_obj.get_string_member("kind");
-                Json.Object data_obj = comment_obj.get_object_member("data");
+            try{
                 
-                if(kind == "t1") {
-                    Comment comment = parse_comment_from_json(data_obj);
-                    comments.add(comment);
-                } else {
-                    stdout.printf("Kind is %s...\n", kind);
-                }
-            }
+                this._parser.load_from_data(data, -1);
+                var root_object = this._parser.get_root().get_object();
 
-            return comments;
+                GLib.List<weak Json.Node> things_nodes = root_object 
+                    .get_object_member("json")
+                    .get_object_member("data")
+                    .get_array_member("things")
+                    .get_elements();
+                
+                var comments = new ArrayList<Comment>();
+                foreach(Json.Node comment_node in things_nodes) {
+                    Json.Object comment_obj = comment_node.get_object();
+                    string kind = comment_obj.get_string_member("kind");
+                    Json.Object data_obj = comment_obj.get_object_member("data");
+                    
+                    if(kind == "t1") {
+                        Comment comment = parse_comment_from_json(data_obj);
+                        comments.add(comment);
+                    } else {
+                        stdout.printf("Kind is %s...\n", kind);
+                    }
+                }
+
+                return comments;
+
+            } catch (Error e) {
+                error(e.message);
+            }
         }
 
         /**

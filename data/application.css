@@ -44,53 +44,55 @@
 .post-list {
     background-color: transparent;
 }
-/* 
+
 .post-list-listbox {
     background-color: transparent;
 }
     .post-list-listbox row {
-        border-bottom: 1px solid #C4C4C4;
-        background-color: transparent;
+        /* border-bottom: #7c7c7c solid 1px; */
+        padding-bottom: 12px;
     }
 
-    .post-list-listbox row:selected {
-        background-color: #d4d4d4;
-    }
- */
 .post-list-item {
-    padding: 16px;
+    padding: 0;
 }
     
     .post-list-item .subreddit {
-        color: @ORANGE_500;
+        color: @BANANA_700;
         font-weight: bold;
     }
 
     .post-list-item .posted-by {
-        /* color: @ORANGE_500; */
-        font-weight: bold;
+        color: @BANANA_700;
+        /* font-weight: bold; */
     }
 
     .post-list-item .post-title,
     .post-list-item .post-title text
     {
-        font-weight: bold;
-        padding: 12px 0 12px 0;
+        /* font-weight: bold; */
         background-color: transparent;
+        padding-top: 0;
     }
 
     .post-list-item image.thumbnail {
-        box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
     }
 
     .post-list-item .score {
-        font-weight: bold;
-        /* color: @BANANA_500; */
+        font-size: 20px;
+        /* font-weight: bold; */
+        color: @MINT_700;
+        /* font-weight: bold; */
     }
 
     .post-list-item .date-posted {
         color: #7e8087;
-        font-weight: bold;
+        /* font-weight: bold; */
+    }
+
+    .post-list-item-footer {
+        padding-top: 8px;
     }
 
 /*
@@ -118,10 +120,8 @@
 }
 
 .post-details-title {
-    text-shadow: 1px 1px 2px #333; 
-    /* background-color: @ORANGE_500; */
-    padding: 18px;
-    color: white;
+    text-shadow: 1px 1px 2px #7b7b7b; 
+    font-weight: bold;
 }
 
 .post-details-media {
@@ -130,7 +130,7 @@
 }
 
 .post-details-content-body-text {
-    padding: 12px 24px 12px 24px;
+    /* padding: 12px 24px 12px 24px; */
 }
 
 

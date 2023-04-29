@@ -58,10 +58,14 @@ executable(
     'src/Models/Users/User.vala',
     'src/Views/Widgets/VideoPlayer.vala',
 
+    'src/Utils/DateUtils.vala',
+    'src/Utils/FormatUtils.vala',
     'src/Utils/ImageUtils.vala',
     
     dependencies: [
         dependency('gtk+-3.0'),
+        dependency('gdk-pixbuf-2.0', version: '>= 2.42'),
+        dependency('glib-2.0'),
         dependency('granite'),
         dependency('gee-0.8'),
         dependency('libsoup-2.4'),

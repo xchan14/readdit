@@ -1,4 +1,4 @@
-Build started at 2023-04-29T01:12:30.053141
+Build started at 2023-04-30T01:23:44.093290
 Main binary: /usr/bin/python3
 Build Options: -Dprefix=/usr -Dbackend=ninja
 Python system: Linux
@@ -40,8 +40,8 @@ env[PKG_CONFIG_PATH]:
 Called `/usr/bin/pkg-config --libs glib-2.0` -> 0
 -lglib-2.0
 Running compile:
-Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmp8ovyk1az
-Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmp8ovyk1az/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmp8ovyk1az/output.exe -D_FILE_OFFSET_BITS=64 -O0 
+Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmp3utnmx7r
+Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmp3utnmx7r/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmp3utnmx7r/output.exe -D_FILE_OFFSET_BITS=64 -O0 
 
 Code:
  #include<stdio.h>
@@ -62,8 +62,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmp72fc2y5p
-Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmp72fc2y5p/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmp72fc2y5p/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmpq8f6t909
+Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmpq8f6t909/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmpq8f6t909/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
 
 Code:
  
@@ -76,6 +76,8 @@ Compiler stderr:
  
 Program glib-compile-resources found: YES (/usr/bin/glib-compile-resources)
 Dependency gtk+-3.0 found: YES 3.24.33 (cached)
+Dependency gdk-pixbuf-2.0 found: YES 2.42.8 (cached)
+Dependency glib-2.0 found: YES 2.72.4 (cached)
 Dependency granite found: YES 6.2.0 (cached)
 Dependency gee-0.8 found: YES 0.20.5 (cached)
 Dependency libsoup-2.4 found: YES 2.74.2 (cached)
@@ -96,8 +98,8 @@ io.github.xchan14.readdit undefined
 
 Found ninja-1.10.1 at /usr/bin/ninja
 Running compile:
-Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmpls1g_30b
-Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmpls1g_30b/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmpls1g_30b/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+Working directory:  /home/xchan/Documents/source codes/readdit/build/meson-private/tmpyyvechct
+Command line:  cc /home/xchan/Documents/source codes/readdit/build/meson-private/tmpyyvechct/testfile.c -o /home/xchan/Documents/source codes/readdit/build/meson-private/tmpyyvechct/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
 
 Code:
  
